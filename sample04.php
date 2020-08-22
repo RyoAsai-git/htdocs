@@ -18,7 +18,11 @@
 <main>
 <h2>Practice</h2>
 <pre>
-<!-- ここにプログラムを記述します -->
+<?php
+  date_default_timezone_get('Asia/Tokyo');
+  $today = new DateTime();
+  print($today->format('G時 i分　s秒'));
+?>
 </pre>
 </main>
 </body>    
