@@ -18,12 +18,8 @@
 <main>
 <h2>Practice</h2>
 <pre>
-<?php
-  date_default_timezone_set('Asia/Tokyo');
-  date('G i s'); //表示されない print関数と用いる
-  print('現在は' . date('G時 i分 s秒') . 'です');
-?>
+<!-- ここにプログラムを記述します -->
 </pre>
 </main>
 </body>    
-</html>
+</html>t
