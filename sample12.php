@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="css/style.css">
+
+<title>PHP</title>
+</head>
+<body>
+<header>
+<h1 class="font-weight-normal">PHP</h1>    
+</header>
+
+<main>
+<h2>Practice</h2>
+<pre>
+<?php 
+$date = sprintf('%04d年 %02d月 %02d日', 2018, 8, 23); 
+//真ん中の数字 桁数
+//前の０ 空欄を補うもの 
+//d digit　型 
+//％の数だけパラメーターを追加する
+print('2020年　8月 22日');
+print($date);
+?>
+</pre>
+</main>
+</body>    
+</html>
