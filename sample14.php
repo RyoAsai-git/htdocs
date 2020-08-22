@@ -19,12 +19,14 @@
 <h2>Practice</h2>
 <pre>
 <?php
-$success = file_put_contents('../news_data/news.text', '2020-08-22 ホームページをリニューアルしました' . "\n");
-if ($success) {
-  print('ファイルへの書き込みが成功しました');
-} else {
-  print('書き込みに失敗しました。 フォルダの権限などを確認してください。');
-}
+  
+  $news = file_get_contents('../news_data/news.text');
+  // print($news); //変数化　内容に追記が可能
+  $news .= '2020-08-22 ニュースを追加しました' . "\n";
+  file_put_contents('../news_data/news.text', $news);
+  // readfile('../news_data/news.text'); //読み込むだけ
+
+  print($news);
 ?>
 </pre>
 </main>

@@ -19,12 +19,15 @@
 <h2>Practice</h2>
 <pre>
 <?php
-$success = file_put_contents('../news_data/news.text', '2020-08-22 ホームページをリニューアルしました' . "\n");
-if ($success) {
-  print('ファイルへの書き込みが成功しました');
-} else {
-  print('書き込みに失敗しました。 フォルダの権限などを確認してください。');
-}
+
+$file = file_get_contents('https://h2o-space.com/feed/json/');
+$json = json_decode($file); //phpのオブジェクト化 //近年はxmlよりjsonの方が一般的
+
+foreach ($json->items as $item) :
+?>
+・　<a href="<?php print($item->url); ?>"><?php print($item->title) ?></a>
+<?php
+endforeach;
 ?>
 </pre>
 </main>

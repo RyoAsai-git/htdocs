@@ -18,13 +18,13 @@
 <main>
 <h2>Practice</h2>
 <pre>
+<?php 
+$xmlTree = simplexml_load_file('https://h2o-space.com/feed/');
+foreach ($xmlTree->channel->item as $item) :
+?>
+ ・ <a href="<?php print($item->Link); ?>"><?php print($item->title); ?></a>
 <?php
-$success = file_put_contents('../news_data/news.text', '2020-08-22 ホームページをリニューアルしました' . "\n");
-if ($success) {
-  print('ファイルへの書き込みが成功しました');
-} else {
-  print('書き込みに失敗しました。 フォルダの権限などを確認してください。');
-}
+endforeach; 
 ?>
 </pre>
 </main>
