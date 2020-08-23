@@ -1,4 +1,5 @@
 SELECT * FROM my_items;
+*全てという意味
 
 //書き方は２通り
 INSERT INTO my_items SET id=1, item_name = 'いちご', price = 200
@@ -31,3 +32,17 @@ intは21億以上のデータを管理できる
 それ以上はBIGINTで管理9999兆より上まで管理できる
 それ以上はプライマリキーを二つ持たせる　
 永久欠番は気にしない
+
+WHEREの使い方
+SELECT * FROM my_items WHERE id=2;
+SELECT * FROM my_items WHERE price=180;
+SELECT * FROM my_items WHERE item_name='いちご'
+SELECT * FROM my_items WHERE price < 180
+SELECT * FROM my_items WHERE keyword LIKE '%甘い%'
+// %の部分はなんでも良い keywordカラムの'甘い'という言葉の前はなんでも良い
+SELECT * FROM my_items WHERE keyword LIKE '赤い%'
+//先頭一致　最初に'赤い'から始まるkeywordを検索
+SELECT * FROM my_items WHERE keyword LIKE '%赤い'
+//後方一致 最後が'赤い'になるkeywordを検索
+SELECT * FROM my_items WHERE price >= 100 AND price < 150
+SELECT * FROM my_items WHERE id= 1 OR id=3
