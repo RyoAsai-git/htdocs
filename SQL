@@ -1,0 +1,33 @@
+SELECT * FROM my_items;
+
+//書き方は２通り
+INSERT INTO my_items SET id=1, item_name = 'いちご', price = 200
+INSERT INTO my_items (id, item_name, price) VALUE ('1', 'りんご', '200');
+
+UPDATE my_items SET price=180 WHERE id=1;
+UPDATE my_items SET price=150 
+//whereがないとデータが全て置き換わる　whereでどこをいじるか指定
+
+DELETE FROM my_items WHERE id =1;
+DELETE FROM my_items
+//whereがないとデータが全て消される
+
+ユニークキー
+idが重複することでデータとして破綻してしまう
+プライマリーキー (主キー)
+
+idは基本的にプライマリーキー設定　必ず設定すべき
+重複をerror
+
+オートインクリメント 	AUTO_INCREMENT
+自動的に加算するカラム
+
+idをいちいち入力しなくても良い
+データを削除するとその番号は永久欠番になる
+データベースはリレーションの関係もあり、また新しいデータに同じ番号を割り振るとなんのデータかわからなくなるリスク
+データベースは基本的に削除した番号は使われない
+
+intは21億以上のデータを管理できる
+それ以上はBIGINTで管理9999兆より上まで管理できる
+それ以上はプライマリキーを二つ持たせる　
+永久欠番は気にしない
