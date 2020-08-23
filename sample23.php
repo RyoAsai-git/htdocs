@@ -46,7 +46,7 @@
 <table> 
   <?php //上のテーブルをfor文にて
   for ($i = 1; $i<=10; $i++) {
-    if ($i % 2) {
+    if ($i % 2) {//0以外のとき true
       print('<tr style="background-color: #ccc">');
     } else {
       print('<tr>');
