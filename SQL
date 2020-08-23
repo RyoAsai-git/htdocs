@@ -46,3 +46,33 @@ SELECT * FROM my_items WHERE keyword LIKE '%赤い'
 //後方一致 最後が'赤い'になるkeywordを検索
 SELECT * FROM my_items WHERE price >= 100 AND price < 150
 SELECT * FROM my_items WHERE id= 1 OR id=3
+
+
+データ型
+YEAR　年だけ
+DATE 年月日
+DATETIME 年月日時分秒
+TIME　時分秒
+TIMESTAMP on_update_CURRENT_TIMESTAMP そのデータをいつ作り、いつ保存したか記録　外部ユーザーが編集するデータに適用すべき
+
+計算　集計　演算用
+SELECT SUM(price) FROM my_items
+SELECT MAX(price) FROM my_items
+SELECT MIN(price) FROM my_items
+SELECT COUNT(price) FROM my_items 個数
+SELECT AVG(price) FROM my_items　平均値
+
+テーブルからカラムを削除m
+ALTER TABLE makers DROP COLUMN maker_id
+
+リレーション
+SELECT * FROM makers, my_items WHERE my_items.id=1 AND makers.id=my_items.maker_id
+SELECT * FROM makers, my_items //全ての情報
+//リレーションを組みたい場合 リレーションを組みたいテーブルをカンマで繋ぐ
+//WHERE以降 検索したいカラム
+SELECT * FROM makers, my_items WHERE id=1 AND makers.id=my_items.maker_id
+//WHERE以降が idだけだとmakers　my_itemsどっちのidかわからなくなりエラー
+//そうならないためにどのテーブルのidかをドットで繋いで明示する
+//AND maker_idがmy_itemsのmaker_idと一致しているかを示す
+//これがリレーションをつける実際の条件
+//my_itemsというテーブルにmaker_idというカラムを作り、そこに生産者のidを入れている  リレーションをデータベースに教えてあげる
