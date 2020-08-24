@@ -75,4 +75,4 @@ SELECT * FROM makers, my_items WHERE id=1 AND makers.id=my_items.maker_id
 //そうならないためにどのテーブルのidかをドットで繋いで明示する
 //AND maker_idがmy_itemsのmaker_idと一致しているかを示す
 //これがリレーションをつける実際の条件
-//my_itemsというテーブルにmaker_idというカラムを作り、そこに生産者のidを入れている  リレーションをデータベースに教えてあげる
+//my_itemsというテーブルにmaker_idというカラムを作り、そこに生産者のidを入れている  このSQLでリレーションをデータベースに教えてあげる
