@@ -33,3 +33,38 @@ SELECT item_name, SUM(COUNT) FROM my_items LEFT JOIN carts ON my_items.id=carts.
 //ON 内部結合のWHEREと同じく記述
 //ただしここでは内部結合の条件のみ
 //GROUP BY carts.item_id, item_nameでグループごとの集計、my_itemsとのリレーションを組み LEFT JOINで計算結果がないデータも表示
+
+SELECT item_id FROM carts
+//item_idが重複している
+SELECT DISTINCT(item_id) FROM carts
+//DISTINCTを用いることで重複する値をまとめる
+
+SELECT * FROM my_items WHERE price>=50 AND price<150
+//同じカラムに対して複数条件を設定したい場合にはBETWEEN
+SELECT * FROM my_items WHERE price BETWEEN 50 AND 149
+//BETWEENは以下という表示になるので150より下を149以下で表示する必要がある
+
+SELECT * FROM my_items WHERE id=1 OR id=3
+//同じカラムに対して複数条件を設定したい場合にIN
+SELECT * FROM my_items WHERE id IN(1, 3)
+//IN（）内に候補となるものをカンマ区切りで大量の一致させたいものを指定できる
+
+SELECT * FROM carts
+//これが膨大になってきた場合に毎回全データを所得するのは非常に効率が悪い　件数を制限　LIMIT
+SELECT * FROM carts LIMIT 3
+
+SELECT * FROM carts LIMIT 2, 3
+//2~3を取り出すのではない
+//1つ目のパラメーターで何件目からという指定
+//2つ目            で何件
+//２件目から3件取得するという意味
+//WHERE ORDER BY LIMITの順に記述する
+
+SELECT my_items .item_name, SUM(carts.count) FROM my_items, carts WHERE my_items.id=carts.item_id GROUP BY carts.item_id
+//前回のcartsのcountの合計を取得するsql
+//全てのカラムについてテーブル名をつけている
+//毎回テーブル名を記述するのは骨が折れるためショートカットの割り当てが可能
+
+SELECT i .item_name, SUM(c.count) FROM my_items i, carts c WHERE i.id=c.item_id GROUP BY c.item_id
+//FROM my_items i, carts c 半角スペースを開けた状態でショートカット　そのテーブルを象徴する一文字、短いアルファベットなど リレーションを組む際には積極的に利用すべき
+//ここではmy_itemsはitemのi cartsはcで設定
