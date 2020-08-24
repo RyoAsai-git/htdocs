@@ -76,3 +76,37 @@ SELECT * FROM makers, my_items WHERE id=1 AND makers.id=my_items.maker_id
 //AND maker_idがmy_itemsのmaker_idと一致しているかを示す
 //これがリレーションをつける実際の条件
 //my_itemsというテーブルにmaker_idというカラムを作り、そこに生産者のidを入れている  このSQLでリレーションをデータベースに教えてあげる
+
+SELECT * FROM my_items
+//古い順にデータを並び替える 必ずしもidが順番通りになるわけではない
+SELECT * FROM my_items ORDER BY id ASC
+//idカラムの小さい順に並ぶ Ascending　昇順
+SELECT * FROM my_items ORDER BY id
+//これでも昇順に並ぶ デフォルトで昇順
+SELECT * FROM my_items ORDER BY id DESC
+小さい順 Descending 降順
+SELECT * FROM my_items WHERE price <= 180 ORDER BY price
+//priceが180以下のデータを昇順に取り出す
+
+ORDER BY注意点
+テキストを扱う場合
+SELECT * FROM my_items ORDER BY item_name
+//テキスト型並び替えは平仮名と片仮名を区別 
+//先に平仮名を並び替え、片仮名を並び替える　平仮名で片仮名より後半のものが固まってしまう
+//漢字が入ってくると平仮名、片仮名、漢字 
+//コンピューターは漢字をどう読むのかについても文字コードに依存するため、なんて読むのか判別できない
+//テキストを並び替える場合、、カラムをもう一個追加する必要
+//item_name_kanaで振り仮名をふって
+SELECT * FROM my_items ORDER BY item_name_kana
+
+数字を扱う場合
+//rankで売り上げ順を管理した場合、1回目のランキングは
+SELECT * FROM my_items ORDER BY rank; //で問題ない
+//2回目のランキングから一つのデータの順位変動をした場合(ブルーベリーが4位から2位など)
+//全てのデータを再度ランキング編集しなくてはいけない 　
+//相対情報　相手の位置で自分の位置が変わる　変更が非常に大変
+//このような場合は
+//salesというカラムを作成し、売上数を記録
+//SELECT * FROM my_items ORDER BY sales DESC;　にて売り上げランキングを表示
+//絶対情報 相手の情報に関係なく、自分の情報が決まる 並び替えがしやすく、管理がしやすい
+//売り上げが変動した場合も変動したデータの情報だけを変更すれば良いから
