@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../css/style.css">
 
 <title>PHP</title>
 </head>
@@ -18,7 +18,20 @@
 <main>
 <h2>Practice</h2>
 <pre>
-<!-- ここにプログラムを記述します -->
+  <?php 
+  try {
+    $db = new PDO('mysql:dbname=mydb;host=127.0.0.1;charset=UTF8', 
+    'root', 'root');
+    //127.0.0.1は自分自身を指すipアドレス
+    //MAMPで動いているapacheとMySQLが同じコンピューターのものだから
+    //データベースのサーバーとwebサーバーが分かれていたらipアドレスは変わる
+    //1つ目のroot ユーザー名
+    //2     root パスワード　MAMPの場合はroot
+    
+  } catch (PDOException $e) {
+    echo 'DB接続エラー：' . $e->getMessage(); 
+  }
+  ?>
 </pre>
 </main>
 </body>    
