@@ -76,7 +76,7 @@ SELECT * FROM makers, my_items WHERE id=1 AND makers.id=my_items.maker_id
 //AND maker_idがmy_itemsのmaker_idと一致しているかを示す
 //これがリレーションをつける実際の条件
 //my_itemsというテーブルにmaker_idというカラムを作り、そこに生産者のidを入れている  このSQLでリレーションをデータベースに教えてあげる
-
+c
 SELECT * FROM my_items
 //古い順にデータを並び替える 必ずしもidが順番通りになるわけではない
 SELECT * FROM my_items ORDER BY id ASC

@@ -20,3 +20,16 @@ lesson49確認
 SELECT item_name, SUM(count) FROM my_items, carts WHERE my_items.id=carts.item_id GROUP BY item_id
 //ORDER BYはWHEREの後に記述
 idの代わりにitem_nameが表示される
+//FROM 以降にカンマでmy_itemとcartsを内部結合　テーブルの関係が対等の時に使う
+//この場合、どちらのテーブルにデータがないともう一方のデータが表示されなくなる
+
+SELECT item_name, SUM(COUNT) FROM my_items LEFT JOIN carts ON my_items.id=carts.item_id GROUP BY carts.item_id, item_name
+//０がNULLで表示される
+//FROM以降が内部結合、外部結合で変わってくる
+//全てのデータを出すために(0のブルーベリーを表示)　my_itemsを主として表示
+//LEFT JOIN　でcartsを外部結合　my_itemsにcartsが属するという形で結合
+//こうすることでmy_itemsのデータは表示され、その上でcartsのテーブルで計算を行うことができる
+//LEFT JOIN ではどういう条件でcartsをmy_itemに族させるのかをON以降で記述
+//ON 内部結合のWHEREと同じく記述
+//ただしここでは内部結合の条件のみ
+//GROUP BY carts.item_id, item_nameでグループごとの集計、my_itemsとのリレーションを組み LEFT JOINで計算結果がないデータも表示
