@@ -20,7 +20,7 @@
 <pre>
   <?php 
   try {
-    $db = new PDO('mysql:dbname=mydb;host=127.0.0.1;charset=UTF8', 
+    $db = new PDO('mysql:dbname=mydb2;host=localhost;port=8889;charset=UTF8', 
     'root', 'root');
     //127.0.0.1は自分自身を指すipアドレス
     //MAMPで動いているapacheとMySQLが同じコンピューターのものだから
