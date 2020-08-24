@@ -1,0 +1,22 @@
+GROUP BY
+//cartsテーブルを作成
+INSERT INTO carts SET item_id =1, count =1
+//リレーション
+SELECT * FROM my_items, carts WHERE my_items.id=carts.item_id
+//my_itemsとcartsテーブルを取り出し
+//my_itemsのidとcartsのitem.idがリレーションであることをsqlで伝える
+
+SELECT SUM(count) FROM carts
+//カートでいくつ売れたか確認
+
+//どの商品がいくつ売れたか確認したい場合
+SELECT item_id, SUM(count) FROM carts GROUP BY item_id
+//GROUP BY に指定したカラムはSELECTにも入っていないと正しく動作しない
+//GROUP BY に指定したカラムはグループになる
+//cartsのitem_idを寄せ集めて、SUM(count)でcountを合計する
+
+//リレーションを組んで上げて見やすくする
+lesson49確認
+SELECT item_name, SUM(count) FROM my_items, carts WHERE my_items.id=carts.item_id GROUP BY item_id
+//ORDER BYはWHEREの後に記述
+idの代わりにitem_nameが表示される
