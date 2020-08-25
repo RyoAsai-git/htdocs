@@ -151,6 +151,27 @@
         <time><?php print($memo['created_at']) ?></time>
         <hr>
     <?php endwhile ?>
+    <?php if ($page >= 2) : ?>
+        <a href="index.php?page=<?php print($page-1) ?>"><?php print($page-1) ?>ページ目へ</a>
+    <?php endif ?>
+      |
+    <!-- 上記のコードだと１ページ目を表示した時に0ページ目が出力される 1ページ目でもaタグが呼ばれている -->
+    <!-- ifで制御 -->
+    <!-- 空のページも表示してしまう 制御が難しい 何件のデータが入っているか調べないといけないから -->
+    <!-- LIMITではとってこれない 別途SQLを発行 -->
+    <?php
+    $counts = $db->query('SELECT COUNT(*) as cnt FROM memos');
+    //as 別名 count が cntというキーとして扱う
+    //COUNTはデータの件数取得
+    $count = $counts->fetch();
+    $max_page = ceil($count['cnt'] / 5);
+    //ceilは切り上げ
+    //$count 数字
+    if ($page < $max_page) : ?>
+        <a href="index.php?page=<?php print($page+1) ?>"><?php print($page+1) ?>ページ目へ</a>
+        <!-- URLパラメーターを$pageには今表示しているページ １以上の数字 画面にも表示 -->
+    <?php endif ?>
+    
   </article>
 </main>
 </body>    
