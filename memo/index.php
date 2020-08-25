@@ -56,6 +56,7 @@
 
   require('dbconnect.php');
 
+
   // $count = $db->exec('INSERT INTO my_items SET maker_id = 1, item_name = "もも", price = 210, keyword="缶詰, ピンク, 甘い"');
   // //execにはSQLを直接書く
   // //注意 execのメソッドのパラメーターとして指定したクオテーション記号とSQLの中で使用したクオーテーションは分けるかescape
@@ -85,7 +86,57 @@
   //行を次々と取り出し、行が無くなったらfalseを返す これをwhile文に入れている falseになるとwhileは止まる
   //$recordは連想配列 $record['カラム名']で商品を取り出す
 
-  $memos = $db->query('SELECT * FROM memos ORDER BY id DESC');
+  // $memos = $db->query('SELECT * FROM memos ORDER BY id DESC');
+  //ページネーションを行うためにLIMITを使う
+  // $memos = $db->query('SELECT * FROM memos ORDER BY id DESC LIMIT 0, 5');
+  //最初の5件
+  //まだ次のページが見れない
+  //URLパラメーターを使う
+  
+  // $memos = $db->prepare('SELECT * FROM memos ORDER BY id DESC LIMIT ?, 5');
+  
+  
+  // //executeパラメータは型で指定できないため $memos->execute(array($_POST['memo']));は使えない
+  // //LIMIT句は数字で渡さないといけない
+
+  // $memos->bindParam(1, $_REQUEST['page'], PDO::PARAM_INT);
+
+  // $memos->execute();
+  //ここではlocalhost8888/memo/index.php?page=2だと10件目、9件目を飛ばし3番目のデータである8番目から始まっている
+  //LIMITはページではなく、件数で管理するため期待している動作にはならない
+  //5の倍数で管理
+
+  // $page = $_REQUEST['page'];
+  //pageには連続した数字が入る
+  //LIMIT句へ渡す数字を作る
+
+  // page=1 LIMIT 0, 5
+  // page=2 LIMIT 5, 5
+  // page=3 LIMIT 10, 5
+  // 5 * (page - 1);
+  //pageが1の場合,1-1 = 0, 5 * 0 = 0
+  //pageが2      2-1 = 1, 5 * 1 = 5
+  //こうした形でlIMIT句の第一パラメータを管理
+  //パラメータを省略すると何も表示されない
+
+  if (isset($_REQUEST['page']) && is_numeric($_REQUEST['page'])) {
+    $page = $_REQUEST['page'];
+  } else {
+    $page = 1;
+  }
+  //$_REQUESTには渡されたpageが入るようになる
+  //それ以外は1が入る
+  //URLパラメータを省略した場合には自動的に1pageが表示される
+  //数字以外の文字列を入力されてしまうことを考えis_numericを記述
+  //エラーメッセージを表示しても良いがここでは強制的に１ページ目を表示
+
+
+  $start = 5 * ($page - 1);
+
+  $memos = $db->prepare('SELECT * FROM memos ORDER BY id DESC LIMIT ?, 5');
+
+  $memos->bindParam(1, $start, PDO::PARAM_INT);
+  $memos->execute();
   ?>
 <!-- </pre> -->
   <article>
@@ -96,7 +147,6 @@
         <!-- 2 開始位置 -->
         <!-- 3 文字数-->
         <!-- href HyperText Reference どこにリンクを貼るのか指定する属性 -->
-
 
         <time><?php print($memo['created_at']) ?></time>
         <hr>

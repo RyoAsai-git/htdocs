@@ -57,10 +57,10 @@
     require('dbconnect.php');
     
     $statement = $db->prepare('INSERT INTO memos SET memo=?, created_at=NOW()');
-    // $statement->execute(array($_POST['memo']));
-    $statement->bindParam(1, $_POST['memo']);
+    $statement->execute(array($_POST['memo']));
+    // $statement->bindParam(1, $_POST['memo']); //動作しない
     echo 'メッセージが登録されました';
-    
+
 
 ?>
 </pre>
