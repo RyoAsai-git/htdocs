@@ -51,16 +51,35 @@
     //例外処理はデータベース以外にも使用する
   }
 
-  $count = $db->exec('INSERT INTO my_items SET maker_id = 1, item_name = "もも", price = 210, keyword="缶詰, ピンク, 甘い"');
-  //execにはSQLを直接書く
-  //注意 execのメソッドのパラメーターとして指定したクオテーション記号とSQLの中で使用したクオーテーションは分けるかescape
-  //パラメーターはシングル SQLはダブルが一般的
-  //実際にデータベースに影響を与えた行の数が戻り値で帰ってくる $countで受け取る
-  //$dbはnew PDOのインスタンスとして準備したもの
-  //ここではlocalhostのmydbへのアクセス情報を持っているため$mydbのテーブルは$dbを用いて自由に操作できる
+  // $count = $db->exec('INSERT INTO my_items SET maker_id = 1, item_name = "もも", price = 210, keyword="缶詰, ピンク, 甘い"');
+  // //execにはSQLを直接書く
+  // //注意 execのメソッドのパラメーターとして指定したクオテーション記号とSQLの中で使用したクオーテーションは分けるかescape
+  // //パラメーターはシングル SQLはダブルが一般的
+  // //実際にデータベースに影響を与えた行の数が戻り値で帰ってくる $countで受け取る
+  // //$dbはnew PDOのインスタンスとして準備したもの
+  // //ここではlocalhostのmydbへのアクセス情報を持っているため$mydbのテーブルは$dbを用いて自由に操作できる
 
-  //update構文など複数行に影響あるSQLを使うと$countにはその影響を与えた行数が入る
-  echo $count . '件のデータを挿入しました';
+  // //update構文など複数行に影響あるSQLを使うと$countにはその影響を与えた行数が入る
+  // echo $count . '件のデータを挿入しました';
+
+  // //execというメソッドは検索した結果を受け取ることができない
+  //SELECT構文が使えない
+
+  $records = $db->query('SELECT * FROM my_items');
+  while ($record = $records->fetch()) {
+    print($record['item_name'] . "\n");
+  }
+  //queryメソッド パラメーターにSQLを取る点はexecと同じ
+  //戻り値の内容が変わる
+  //execは影響を与えた行の数
+  //queryは得られた値 SELECT構文を使うときは必ずquery
+  //$recordsはオブジェクトのインスタンスとなり、$recordセットのオブジェクトのインスタンスとなる
+  //fetch
+  //データベースから受け取ったrecordの行の集まりのうち、1行を取り出す
+  //行を次々と取り出し、行が無くなったらfalseを返す これをwhile文に入れている falseになるとwhileは止まる
+  //$recordは連想配列 $record['カラム名']で商品を取り出す
+
+  
   ?>
 </pre>
 </main>
