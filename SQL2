@@ -27,7 +27,7 @@ SELECT item_name, SUM(COUNT) FROM my_items LEFT JOIN carts ON my_items.id=carts.
 //0がNULLで表示される
 //FROM以降が内部結合、外部結合で変わってくる
 //全てのデータを出すために(0のブルーベリーを表示)　my_itemsを主として表示
-//LEFT JOIN　でcartsを外部結合　my_itemsにcartsが属するという形で結合
+//LEFT JOIN　でcartsを外部結合　my_itemsの下にcartsが属するという形で結合
 //こうすることでmy_itemsのデータは表示され、その上でcartsのテーブルで計算を行うことができる
 //LEFT JOIN ではどういう条件でcartsをmy_itemに族させるのかをON以降で記述
 //ON 内部結合のWHEREと同じく記述
