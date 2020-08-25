@@ -24,7 +24,7 @@ idの代わりにitem_nameが表示される
 //この場合、どちらのテーブルにデータがないともう一方のデータが表示されなくなる
 
 SELECT item_name, SUM(COUNT) FROM my_items LEFT JOIN carts ON my_items.id=carts.item_id GROUP BY carts.item_id, item_name
-//０がNULLで表示される
+//0がNULLで表示される
 //FROM以降が内部結合、外部結合で変わってくる
 //全てのデータを出すために(0のブルーベリーを表示)　my_itemsを主として表示
 //LEFT JOIN　でcartsを外部結合　my_itemsにcartsが属するという形で結合
