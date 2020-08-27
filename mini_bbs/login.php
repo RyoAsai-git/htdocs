@@ -28,9 +28,13 @@
                 exit;
             } else {
                 //ログイン失敗処理
+                //パスワードが間違っている
                 $error['login'] = 'failed';
             }
-        } 
+        } else {
+            //emailかpasswordのどちらかが空のときの処理
+            $error['login'] = 'blank';
+        }
     }
 
 
@@ -61,11 +65,17 @@
       <dl>
         <dt>メールアドレス</dt>
         <dd>
-          <input type="text" name="email" size="35" maxlength="255" value="<?php echo htmlspecialchars($_POST['email']); ?>" />
+          <input type="text" name="email" size="35" maxlength="255" value="<?php print(htmlspecialchars($_POST['email'], ENT_QUOTES)) ?>" />
+          <?php if ($error['login'] === 'blank') : ?>
+            <p class="error">* メールアドレスとパスワードをご記入ください</p>
+          <?php endif ?>
+          <?php if ($error['login'] === 'failed') : ?>
+            <p class="error">ログインに失敗しました。正しくご記入ください</p>
+          <?php endif ?>
         </dd>
         <dt>パスワード</dt>
         <dd>
-          <input type="password" name="password" size="35" maxlength="255" value="<?php echo htmlspecialchars($_POST['password']); ?>" />
+          <input type="password" name="password" size="35" maxlength="255" value="<?php print(htmlspecialchars($_POST['password'], ENT_QUOTES)) ?>" />
         </dd>
         <dt>ログイン情報の記録</dt>
         <dd>
