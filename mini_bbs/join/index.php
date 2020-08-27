@@ -19,14 +19,47 @@
         }
         //strlen 指定した文字数を図り、数字で返す
         //ここでエラーの配列にlengthを入れることで下で $error['password] === 'length'のエラーを出力できる
+
         if ($_POST['password'] === '') {
             $error['password'] = 'blank';
+        }
+
+        $fileName = $_FILES['image']['name'];
+        if (!empty($fileName)) {
+            //画像は必須項目ではない
+            //アップロードしている場合の処理
+            $ext = substr($fileName, -3);
+            //ファイルの後ろ三文字を切り取る処理
+            //拡張子を得ることができる
+            if ($ext != 'jpg' && $ext != 'gif' && $ext != 'png') {
+                $error['image'] = 'type';
+            }
         }
         //errorがない時に確認画面に推移する
         //errorが発生していない時の条件
         if (empty($error)) {
+            $image = date('YmdHis') . $_FILES['image']['name'];
+            //fileの処理
+            //date('YmdHis') 日付
+            //20181123151627my.face.pmg
+            //ファイル名というのは同じ名前でファイルをアップする可能性があり、上書きされてしまうリスク
+            //日付で重複回避
+            //厳密には同じ時間にアップすると上書きされてしまう
+            //方法として、アップロードされた画像をデータベースで連番を作り、ファイル名にして重複を避ける
+            move_uploaded_file($_FILES['image']['tmp_name'], '../member_picture' . $image);
+            //$_FILESというグローバル変数はformのinput_fileから得られた内容
+            //tmp_name 一時的にアップロードされている場所 このままだと消えてしまう恐れ、保存したい場所に保存する そのためにmove_uploaded_file
+            //move_uploaded_file
+            //1 パラメータ 今ある場所
+            //2          移動先 移動先に$image内のファイルネームで保存する
+            
             $_SESSION['join'] = $_POST;
             //エラーがない時に値を保存する
+            $_SESSION['join']['image'] = $image;
+            //作った画像ファイル名もデータベースに保存しなくてはならない sessionで保管
+            //現状、写真以外もアップロードできてしまう
+            //セキュリティ面で不安
+            //エラーチェックを追加
             header('Location: check.php');
             exit();
         }
@@ -63,6 +96,9 @@ if ($_REQUEST['action'] === 'rewrite' && isset($_SESSION['join'])) {
 <div id="content">
 <p>次のフォームに必要事項をご記入ください。</p>
 <form action="" method="post" enctype="multipart/form-data">
+            <!-- enctype=""multipart/form-data -->
+            <!-- 決まり文句 ファイルのアップロードが必要な場合は記述 -->
+
 <!-- formタグのaction属性が空 -->
 <!-- 自分自身のページにジャンプさせてエラー内容をチェックする 全て正しければ次のcheck.phpへジャンプ -->
 <!-- 一番上のif文でpostを受け取る -->
@@ -96,7 +132,14 @@ if ($_REQUEST['action'] === 'rewrite' && isset($_SESSION['join'])) {
         </dd>
 		<dt>写真など</dt>
 		<dd>
-        	<input type="file" name="image" size="35" value="test"  />
+            <input type="file" name="image" size="35" value="test"  />
+            <!-- 写真 input="file" -->
+            <!-- ファイルをアップロードする際にはformに特別な属性が必要 -->
+            <!-- enctype=""multipart/form-data -->
+            <!-- 決まり文句 ファイルのアップロードが必要な場合は記述 -->
+            <?php if ($error['image'] === 'type') : ?>
+                <p class="error">* 写真などは[.gif] または [.jpg] または [.png]の画像を指定してください v</p>
+            <?php endif ?>
         </dd>
 	</dl>
 	<div><input type="submit" value="入力内容を確認する" /></div>
