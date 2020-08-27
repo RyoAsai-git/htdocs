@@ -140,6 +140,12 @@ if ($_REQUEST['action'] === 'rewrite' && isset($_SESSION['join'])) {
             <?php if ($error['image'] === 'type') : ?>
                 <p class="error">* 写真などは[.gif] または [.jpg] または [.png]の画像を指定してください v</p>
             <?php endif ?>
+            <!-- パスワードを空にして画像をきちんと設定した場合に、画像の指定が消える -->
+            <!-- もう一度画像を指定してもらう必要がある -->
+            <!-- 下のコードで新たなエラーメッセージ作成 -->
+            <?php if (!empty($error)) : ?>
+                <p class="error">恐れ入りますが、画像を改めて指定してください</p>
+            <?php endif ?>
         </dd>
 	</dl>
 	<div><input type="submit" value="入力内容を確認する" /></div>
