@@ -1,6 +1,9 @@
 <?php 
     session_start();
 
+    require('../dbconnect.php');
+    //ユーザーデータ（メールアドレス等の）重複を避けるために送信前のindexからもデータベースにアクセス
+
     if (!empty($_POST)) {
         //formが送信されているかどうかは$_POSTが空かどうかで判断できる
         //$_POSTが空ではない時にエラーチェックを走らせる
@@ -35,6 +38,25 @@
                 $error['image'] = 'type';
             }
         }
+
+        //アカウントの重複をチェック
+        if (empty($error)) {
+            //メールアドレスがblankの状態だとメールアドレスが誤作動を起こす可能性
+            //予めエラーチェックしてからチェック
+            $member = $db->prepare('SELECT COUNT(*) AS cnt FROM members WHERE email=?');
+            //件数が何件かを取得
+            //cntというショートカットに格納
+            //membersというテーブルからemailを絞り込む
+            $member->execute(array($_POST['email']));
+            $record = $member->fetch();
+            //メールアドレスのメンバーがいれば1いなければ0が返ってくる
+            if ($record['cnt'] > 0) {
+                // === 0でも良いが...
+                //$record['cnt']に2,3といった数字が入ってきた場合でも対応できるよう > 0
+                $error['email'] = 'duplicate';
+            }
+        }
+
         //errorがない時に確認画面に推移する
         //errorが発生していない時の条件
         if (empty($error)) {
@@ -119,6 +141,9 @@ if ($_REQUEST['action'] === 'rewrite' && isset($_SESSION['join'])) {
             <input type="text" name="email" size="35" maxlength="255" value="<?php print(htmlspecialchars($_POST['email'], ENT_QUOTES)) ?>" />
             <?php if ($error['email'] === 'blank') : ?>
                 <p class='error'>* メールアドレスを入力してください</p>
+            <?php endif ?>
+            <?php if ($error['email'] === 'duplicate') : ?>
+                <p class='error'>* 指定されたメールアドレスは既に登録されています</p>
             <?php endif ?>
 		<dt>パスワード<span class="required">必須</span></dt>
 		<dd>
