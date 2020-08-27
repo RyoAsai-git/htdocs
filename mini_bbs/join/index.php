@@ -1,4 +1,6 @@
 <?php 
+    session_start();
+
     if (!empty($_POST)) {
         //formが送信されているかどうかは$_POSTが空かどうかで判断できる
         //$_POSTが空ではない時にエラーチェックを走らせる
@@ -23,6 +25,8 @@
         //errorがない時に確認画面に推移する
         //errorが発生していない時の条件
         if (empty($error)) {
+            $_SESSION['join'] = $_POST;
+            //エラーがない時に値を保存する
             header('Location: check.php');
             exit();
         }
@@ -32,7 +36,12 @@
         //入力内容を確認するボタンを押した時に判断すべき
         //ボタンを押したかどうかはphpでは判断できない
         //formが送信されたかどうかを判断する
+
     }
+
+if ($_REQUEST['action'] === 'rewrite' && isset($_SESSION['join'])) {
+    $_POST = $_SESSION['join'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +66,10 @@
 <!-- formタグのaction属性が空 -->
 <!-- 自分自身のページにジャンプさせてエラー内容をチェックする 全て正しければ次のcheck.phpへジャンプ -->
 <!-- 一番上のif文でpostを受け取る -->
+
+<!-- check.phpへはセッションで渡すのが良い -->
+<!-- ブラウザを閉じた際に、入力画面に値を残す必要はないためcookieは使わない 個人情報は危険-->
+<!-- check.phpで値を書き直す機能を作るため、$_POSTで渡すのは非効率  -->
 	<dl>
 		<dt>ニックネーム<span class="required">必須</span></dt>
 		<dd>
