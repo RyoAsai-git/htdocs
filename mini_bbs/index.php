@@ -1,3 +1,23 @@
+<?php
+session_start();
+//login.phpで作成した$_SESSIONにidとログイン時間が入っていればログインできていると判定し、このページを表示できるとする
+require('dbconnect.php');
+ 
+if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
+    //セッションに記録された時間に１時間を足した値が現在の時刻よりも大きい場合 １時間何もしていなとログアウトする
+    //ここではログインしている時の処理
+    $_SESSION['time'] = time();
+    //何か行動を起こした時にtimeで上書きしてあげることで、最後の行動から１時間動きが有効になる
+    $members = $db->prepare('SELECT * FROM members WHERE id=?');
+    $members->execute(array($_SESSION['id']));
+    $member = $members->fetch();
+    //これによりログインしているユーザー情報がデータベースから引出された
+} else {
+  header('Location: login.php');
+  exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -18,7 +38,7 @@
   	<div style="text-align: right"><a href="logout.php">ログアウト</a></div>
     <form action="" method="post">
       <dl>
-        <dt>○○さん、メッセージをどうぞ</dt>
+        <dt><?php print(htmlspecialchars($member['name'], ENT_QUOTES)) ?>さん、メッセージをどうぞ</dt>
         <dd>
           <textarea name="message" cols="50" rows="5"></textarea>
           <input type="hidden" name="reply_post_id" value="" />
