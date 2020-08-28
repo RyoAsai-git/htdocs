@@ -2,7 +2,14 @@
     session_start();
     require('dbconnect.php');
 
+    if ($_COOKIE['email'] !== '') {
+        $email = $_COOKIE['email'];
+    }
+
     if (!empty($_POST)) {
+        $email = $_POST['email'];
+        //自動ログインにチェックを入れた状態ログインした後、別のメールアドレスを入力した際にクッキーの値で上書きされてしまうのを防ぐ
+  
         if ($_POST['email'] !== '' && $_POST['password'] !== '') {
             //email、passwordが空ではないとき、ログインチェックをする
             //丁寧に作るのであればメールアドレスが入力されていません、パスワードが入力されていませんと書くべき
@@ -24,6 +31,11 @@
                 $_SESSION['time'] = time();
                 //セッション変数にはパスワードは保存しないようにする
                 //クッキーより安全性が高いといってもセッションハイジャックという行為でデータ抜き出されるのは不正ログインの原因になる
+
+                //次回から自動でログインする処理を実行するためにクッキーを使う
+                if ($_POST['save'] === 'on') {
+                  setcookie('email' , $_POST['email'], time()+60*60*24*14);
+                }
                 header('Location: index.php');
                 exit;
             } else {
@@ -65,7 +77,7 @@
       <dl>
         <dt>メールアドレス</dt>
         <dd>
-          <input type="text" name="email" size="35" maxlength="255" value="<?php print(htmlspecialchars($_POST['email'], ENT_QUOTES)) ?>" />
+          <input type="text" name="email" size="35" maxlength="255" value="<?php print(htmlspecialchars($email, ENT_QUOTES)) ?>" />
           <?php if ($error['login'] === 'blank') : ?>
             <p class="error">* メールアドレスとパスワードをご記入ください</p>
           <?php endif ?>
@@ -80,6 +92,7 @@
         <dt>ログイン情報の記録</dt>
         <dd>
           <input id="save" type="checkbox" name="save" value="on">
+          <!-- nameの'save'のvalueがonの時に自動ログインにチェックがついていると判断できる -->
           <label for="save">次回からは自動的にログインする</label>
         </dd>
       </dl>
