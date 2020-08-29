@@ -19,10 +19,11 @@ if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
 
 if (!empty($_POST)) {
     if ($_POST['message'] !== '') {
-        $message = $db->prepare('INSERT INTO posts SET member_id=?, message=?, reply_message_id=0, created=NOW();');
-        $message->execute(array($member['id'], $_POST['message']));
+        $message = $db->prepare('INSERT INTO posts SET member_id=?, message=?, reply_message_id=?, created=NOW();');
+        //reply_message_idはどの投稿に対しての返信かを記録したカラム
+        $message->execute(array($member['id'], $_POST['message'], $_POST['reply_post_id']));
         //このコードではブラウザで再読み込みした時点でPOSTの値が複数送信されてしまう
-
+        
         header('Location: index.php');
         exit;
         //POSTの処理が終わった後、自分自身をもう一度呼び出す
@@ -33,6 +34,17 @@ if (!empty($_POST)) {
 $posts = $db->query('SELECT m.name, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id ORDER BY created DESC');
 //member postsの二つのテーブルをリレーション
 //p.*はpostテーブルの全ての値
+
+if (isset($_REQUEST['res'])) {
+    //reというリンクがクリックされた場合
+    //返信処理
+    $response = $db->prepare('SELECT m.name, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id AND p.id=?');
+    $response->execute(array($_REQUEST['res']));
+
+    $table = $response->fetch();
+    $message = '@' . $table['name'] . '' . $table['message'];
+    //実際はエラー処理を入れても良い
+}
 ?>
 
 <!DOCTYPE html>
@@ -57,8 +69,10 @@ $posts = $db->query('SELECT m.name, m.picture, p.* FROM members m, posts p WHERE
       <dl>
         <dt><?php print(htmlspecialchars($member['name'], ENT_QUOTES)) ?>さん、メッセージをどうぞ</dt>
         <dd>
-          <textarea name="message" cols="50" rows="5"></textarea>
-          <input type="hidden" name="reply_post_id" value="" />
+          <textarea name="message" cols="50" rows="5"><?php print(htmlspecialchars($message, ENT_QUOTES)) ?></textarea>
+          <!-- textareaはvalue属性が存在しない -->
+          <!-- 代わりに開きタグ 閉じタグが存在する その間に値を入れると出力される-->
+          <input type="hidden" name="reply_post_id" value="<?php print(htmlspecialchars($_REQUEST['res'], ENT_QUOTES)) ?>" />
         </dd>
       </dl>
       <div>
@@ -72,7 +86,9 @@ $posts = $db->query('SELECT m.name, m.picture, p.* FROM members m, posts p WHERE
     <div class="msg">
     <img src="member_picture/<?php print(htmlspecialchars($post['picture'], ENT_QUOTES)); ?>" width="48" height="48" alt="name" />
     <!-- alt属性 画像が表示されなかった時に出力されるもの -->
-    <p><?php print(htmlspecialchars($post['message'], ENT_QUOTES)); ?><span class="name">（<?php print(htmlspecialchars($post['name'], ENT_QUOTES)); ?>）</span>[<a href="index.php?res=">Re</a>]</p>
+    <p><?php print(htmlspecialchars($post['message'], ENT_QUOTES)); ?><span class="name">（<?php print(htmlspecialchars($post['name'], ENT_QUOTES)); ?>）
+    </span>[<a href="index.php?res=<?php print(htmlspecialchars($post['id'], ENT_QUOTES)) ?>">Re</a>]</p>
+    <!-- 返信機能 -->
     <p class="day"><a href="view.php?id="><?php print(htmlspecialchars($post['created'], ENT_QUOTES)); ?></a>
 <a href="view.php?id=">
 返信元のメッセージ</a>
