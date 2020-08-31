@@ -29,7 +29,7 @@
     }
 
     $x = 'ああああ';
-    if ($x) { //数字文字あり true //なし　false
+    if ($x) { //数字文字あり true //なし false
       print('文字あり');
     }
 
