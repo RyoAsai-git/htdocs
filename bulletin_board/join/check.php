@@ -48,10 +48,11 @@ if (!empty($_POST)) {
       <dt>プロフィール画像</dt>
       <dd>
         <?php if(!empty($_SESSION['join']['picture'])) : ?>
-          <img src="../member_picture<?php print(htmlspecialchars($_SESSION['join']['picture'], ENT_QUOTES)) ?>" alt="">
+          <img src="../member_picture/<?php print(htmlspecialchars($_SESSION['join']['picture'], ENT_QUOTES)) ?>" alt="">
         <?php endif ?>
       </dd>
     </dl>
+    <a href="index.php?action=rewrite">&laquo;&nbsp;修正する</a>
     <input type="submit" value="登録する">
   </form>
 </body>

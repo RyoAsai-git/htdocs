@@ -29,12 +29,16 @@ if (!empty($_POST)) {
     
     if (empty($error)) {
         $image = date('YmdHis') . $_FILES['picture']['name'];
-        move_uploaded_file($_FILES['picture']['tmp_name'], '../member_picture' . $image);
+        move_uploaded_file($_FILES['picture']['tmp_name'], '../member_picture/' . $image);
         $_SESSION['join']            = $_POST;
         $_SESSION['join']['picture'] = $image;
         header('Location: check.php');
         exit;
     }
+}
+
+if ($_REQUEST['action'] === 'rewrite' && isset($_SESSION['join'])) {
+    $_POST = $_SESSION['join'];
 }
 
 ?>
@@ -52,7 +56,7 @@ if (!empty($_POST)) {
     <dl>
       <dt>ニックネーム</dt>
       <dd>
-        <input type="text" name="name" maxlength="100" value="">
+        <input type="text" name="name" maxlength="100" value="<?php print(htmlspecialchars($_POST['name'], ENT_QUOTES))?>">
         <?php if ($error['name'] === 'blank') : ?>
           <p>ニックネームを入力してください</p>
         <?php endif ?>
@@ -61,7 +65,7 @@ if (!empty($_POST)) {
     <dl>
       <dt>メールアドレス</dt>
       <dd>
-        <input type="text" name="email" maxlength="255" value=""> 
+        <input type="text" name="email" maxlength="255" value="<?php print(htmlspecialchars($_POST['email'], ENT_QUOTES))?>"> 
         <?php if ($error['email'] === 'blank') : ?>
           <p>メールアドレスを入力してください</p>
         <?php endif ?>
@@ -70,7 +74,7 @@ if (!empty($_POST)) {
     <dl>
       <dt>パスワード</dt>
       <dd>
-        <input type="password" name="password" maxlength="100" value="">
+        <input type="password" name="password" maxlength="100" value="<?php print(htmlspecialchars($_POST['password'], ENT_QUOTES))?>">
         <?php if ($error['password'] === 'blank') : ?>
           <p>パスワードを入力してください</p>
         <?php endif ?>
