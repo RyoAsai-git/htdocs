@@ -35,6 +35,7 @@ $posts->execute();
 </head>
 <body>
   <form action="" method="post">
+    <a href="logout.php">ログアウトする</a>
     <dl>
       <dt><?php print(htmlspecialchars($member['name'], ENT_QUOTES)) ?>さん、メッセージをどうぞ</dt>
       <textarea name="message" id="" cols="50" rows="10"></textarea>
@@ -43,9 +44,10 @@ $posts->execute();
   </form>
 
   <?php foreach ($posts as $post) : ?>
-    <p><img src="member_picture/<?php print(htmlspecialchars($post['picture'], ENT_QUOTES)) ?>" alt="<?php print(htmlspecialchars($post['name'], ENT_QUOTES))?>"></p>
+    <p><img src="member_picture/<?php print(htmlspecialchars($post['picture'], ENT_QUOTES)) ?>" alt="<?php print(htmlspecialchars($post['name'], ENT_QUOTES)) ?>"></p>
     <p><?php print(htmlspecialchars($post['message'], ENT_QUOTES)) ?></p>
-    <p><?php print(htmlspecialchars($post['created'], ENT_QUOTES)) ?></p>
+    <p><a href="view.php?id=<?php print(htmlspecialchars($post['id'], ENT_QUOTES)) ?>"><?php print(htmlspecialchars($post['created'], ENT_QUOTES)) ?></a></p>
+    
   <?php endforeach ?>
 </body>
 </html>
