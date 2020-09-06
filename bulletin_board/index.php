@@ -18,7 +18,7 @@ if (!empty($_POST)) {
             $_POST['reply_post_id'] = 0;
         }
         $message = $db->prepare('INSERT INTO posts SET member_id=?, message=?, reply_message_id=?, created=NOW()');
-        $message->execute(array($member['id'], $_POST['message'], $_POST['reply_message_id']));
+        $message->execute(array($member['id'], $_POST['message'], $_POST['reply_post_id']));
         header('Location: index.php');
         exit;
     }
@@ -58,9 +58,9 @@ if (isset($_REQUEST['res'])) {
     <p><img src="member_picture/<?php print(htmlspecialchars($post['picture'], ENT_QUOTES)) ?>" alt="<?php print(htmlspecialchars($post['name'], ENT_QUOTES)) ?>"></p>
     <p><?php print(htmlspecialchars($post['message'], ENT_QUOTES)) ?></p>
     <p><a href="index.php?res=<?php print(htmlspecialchars($post['id'])) ?>">Re</a></p>
-    <p><a href="view.php?id=<?php print(htmlspecialchars($post['id'], ENT_QUOTES)) ?>"><?php print(htmlspecialchars($post['created'], ENT_QUOTES)) ?>返信元のメッセージ</a></p>
+    <p><a href="view.php?id=<?php print(htmlspecialchars($post['id'], ENT_QUOTES)) ?>"><?php print(htmlspecialchars($post['created'], ENT_QUOTES)) ?></a></p>
     <?php if ($post['reply_message_id'] > 0) : ?>
-      <p><a href="view.php?id=<?php print(htmlspecialchars($post['reply_message_id'])) ?>"></a></p>
+      <p><a href="view.php?id=<?php print(htmlspecialchars($post['reply_message_id'])) ?>">返信元のメッセージ</a></p>
     <?php endif ?>
   <?php endforeach ?>
 </body>
