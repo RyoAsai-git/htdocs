@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require('../dbconnect.php');
 
 if (!empty($_POST)) {
@@ -30,6 +30,10 @@ if (!empty($_POST)) {
     if (empty($error)) {
         $image = date('YmdHis') . $_FILES['picture']['name'];
         move_uploaded_file($_FILES['picture']['tmp_name'], '../member_picture' . $image);
+        $_SESSION['join']            = $_POST;
+        $_SESSION['join']['picture'] = $image;
+        header('Location: check.php');
+        exit;
     }
 }
 
