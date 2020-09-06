@@ -45,7 +45,6 @@ $posts->execute();
 if (isset($_REQUEST['res'])) {
     $response = $db->prepare('SELECT m.name, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id AND p.id=?');
     $response->execute(array($_REQUEST['res']));
-
     $table = $response->fetch();
     $message = '@' . $table['name'] . '' . $table['message'];
 }

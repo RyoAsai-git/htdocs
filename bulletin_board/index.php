@@ -24,7 +24,21 @@ if (!empty($_POST)) {
     }
 }
 
-$posts = $db->prepare('SELECT m.name, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id ORDER BY created DESC');
+$page = $_REQUEST['page'];
+if ($page === '') {
+    $page = 1;
+}
+$page = max($page, 1);
+
+$counts   = $db->query('SELECT COUNT(*) AS cnt FROM posts');
+$cnt      = $counts->fetch();
+$max_page = ceil($cnt['cnt'] / 5);
+$page     = min($page, $max_page);
+
+$start = ($page -1) * 5;
+
+$posts = $db->prepare('SELECT m.name, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id ORDER BY created DESC LIMIT ?,5');
+$posts->bindParam(1, $start, PDO::PARAM_INT);
 $posts->execute();
 
 if (isset($_REQUEST['res'])) {
@@ -63,5 +77,17 @@ if (isset($_REQUEST['res'])) {
       <p><a href="view.php?id=<?php print(htmlspecialchars($post['reply_message_id'])) ?>">返信元のメッセージ</a></p>
     <?php endif ?>
   <?php endforeach ?>
+
+
+  <?php if ($page > 1) : ?>
+    <a href="index.php?page=<?php print($page - 1) ?>">前のページ</a>
+  <?php else : ?>
+    <p>前のページ</p>
+  <?php endif ?>
+  <?php if ($page < $max_page) : ?>
+    <a href="index.php?page=<?php print($page + 1) ?>">次のページ</a>
+  <?php else : ?>
+    <p>次のページ</p>
+  <?php endif ?>
 </body>
 </html>
