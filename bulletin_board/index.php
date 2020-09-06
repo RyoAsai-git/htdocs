@@ -14,6 +14,9 @@ if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
 
 if (!empty($_POST)) {
     if ($_POST['message'] !== '') {
+        if (!isset($_REQUEST['res'])) {
+            $_POST['reply_post_id'] = 0;
+        }
         $message = $db->prepare('INSERT INTO posts SET member_id=?, message=?, reply_message_id=0, created=NOW()');
         $message->execute(array($member['id'], $_POST['message']));
         header('Location: index.php');

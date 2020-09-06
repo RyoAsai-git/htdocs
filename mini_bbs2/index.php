@@ -16,10 +16,10 @@ if (!empty($_POST)) {
         if(!isset($_REQUEST['res'])) {
             $_POST['reply_post_id'] = 0;
         }
-            $message = $db->prepare('INSERT INTO posts SET member_id=?, message=?, reply_message_id=?, created=NOW()');
-            $message->execute(array($member['id'], $_POST['message'], $_POST['reply_post_id']));
-            header('Location: index.php');
-            exit;
+          $message = $db->prepare('INSERT INTO posts SET member_id=?, message=?, reply_message_id=?, created=NOW()');
+          $message->execute(array($member['id'], $_POST['message'], $_POST['reply_post_id']));
+          header('Location: index.php');
+          exit;
     }
 }
 
