@@ -50,3 +50,21 @@ $array_member_3 = [
     ],
 
 ];
+
+if ($height == 90) {
+    echo '身長は' . $height . 'です';
+}
+
+// == 一致
+// === 型も一致
+
+
+// 三項演算子
+//1行でif文が書ける
+//条件 ? 真 : 偽
+
+$math = 80;
+
+$comment = $math > 80 ? 'good' : 'not good';
+
+echo $comment;
