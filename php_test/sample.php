@@ -68,3 +68,4 @@ $math = 80;
 $comment = $math > 80 ? 'good' : 'not good';
 
 echo $comment;
+
