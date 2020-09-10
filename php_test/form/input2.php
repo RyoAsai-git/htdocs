@@ -2,6 +2,8 @@
 
 session_start();
 
+require('validation.php');
+
 header('X-FRAME-OPTIONS:DENY');
 //クリックジャッキング対策
 //重ねて表示はできないことを明示
@@ -16,12 +18,13 @@ var_dump($_POST);
 echo "</pre>";
  
 $pageFlag = 0;
+$error = validation($_POST);
  
-if (!empty($_POST["btn_confirm"])){
+if (!empty($_POST["btn_confirm"]) && empty($error)) {
     $pageFlag = 1;
 }
  
-if (!empty($_POST["btn_submit"])){
+if (!empty($_POST["btn_submit"])) {
     $pageFlag = 2;
 }
  
@@ -32,7 +35,7 @@ if (!empty($_POST["btn_submit"])){
 <head></head>
 <body> 
   <?php if($pageFlag === 1) : ?>
-  <!-- 確認画面 -->
+    <!-- 確認画面 -->
     <?php if ($_POST['csrf'] === $_SESSION['csrfToken']) : ?>
       <form method="POST" action="input2.php">
         氏名
@@ -91,14 +94,23 @@ if (!empty($_POST["btn_submit"])){
     <!-- <?php echo random_bytes(32) ?> -->
     <!-- CSRF対策 暗号 -->
     <!-- このままだと文字化けするので16進数に変換 -->
-    <?php if (!isset($_SESSION['csrfToken'])): ?>
+    <?php if (!isset($_SESSION['csrfToken'])) : ?>
       <?php $csrfToken = bin2hex(random_bytes(32)) ?>
       <?php $_SESSION['csrfToken'] = $csrfToken ?>
     <!-- これを変数へ格納 -->
     <?php endif ?>
     
     <?php $token = $_SESSION['csrfToken'] ?>
-
+    
+    <?php if (!empty($_POST['btn_confirm']) && !empty($error)) : ?>
+      <!-- btn_confirmが押されている=確認ボタンが押されている && エラーに何か入っているとき -->
+      <!-- エラー表示 -->
+      <ul>
+        <?php foreach ($error as $value) : ?>
+          <li><?php echo $value ?></li>
+        <?php endforeach ?>
+      </ul>
+    <?php endif ?>
 
     <form method="POST" action="input2.php">
       氏名
@@ -116,7 +128,7 @@ if (!empty($_POST["btn_submit"])){
       <br>
       年齢
       <select name="age">
-      <option value="">選択してください</option>
+         <option value="">選択してください</option>
         <option value="1">〜19歳</option>
         <option value="2">20歳〜29歳</option>
         <option value="3">30歳〜39歳</option>
@@ -131,12 +143,11 @@ if (!empty($_POST["btn_submit"])){
       <input type="checkbox" name="caution" value="1">注意事項にチェックする
       <br>
 
-
       <input type="submit" name="btn_confirm" value="確認する">
       <input type="hidden" name="csrf" value="<?php echo $token ?>">
       <!-- 合言葉を設定 -->
     </form>
-  <?php endif; ?>
+  <?php endif ?>
 </body>
 </html>
 
