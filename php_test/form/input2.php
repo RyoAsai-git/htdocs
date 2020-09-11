@@ -135,42 +135,55 @@ if (!empty($_POST["btn_submit"])) {
             <input type="text" class="form-control" id="your_name" name="your_name" value="<?php echo h($_POST['your_name']) ?>" required>
             <!-- required 必須項目に記述 -->
           </div>
-        </div>
-      </div>
-      <br>
-      メールアドレス
-      <input type="email" name="email" value="<?php echo h($_POST['email']) ?>">
-      <!-- エラーチェックの際にtype="email"という形でhtml側で既にバリデーションがかかっている -->
-      <br>
-      ホームページ
-      <input type="url" name="url" value="<?php echo h($_POST['url']) ?>">
-      <!-- エラーチェックの際にtype="url"という形でhtml側で既にバリデーションがかかっている -->
-      <br>
-      性別
-      <input type="radio" name="gender" value="0">男性
-      <input type="radio" name="gender" value="1">女性
-      <br>
-      年齢
-      <select name="age">
-         <option value="">選択してください</option>
-        <option value="1">〜19歳</option>
-        <option value="2">20歳〜29歳</option>
-        <option value="3">30歳〜39歳</option>
-        <option value="4">40歳〜49歳</option>
-        <option value="5">50歳〜59歳</option>
-        <option value="6">60歳〜</option>
-      </select>
-      <br>
-      お問い合わせ内容
-      <textarea name="contact" value="<?php echo h($_POST['contact']) ?>"></textarea>
-      <br>
-      <input type="checkbox" name="caution" value="1">注意事項にチェックする
-      <br>
+          <div class="form-group">
+            <label for="email">メールアドレス</label>
+            <input type="email" class="form-control" id="email" name="email" value="<?php echo h($_POST['email']) ?>" required>
+            <!-- エラーチェックの際にtype="email"という形でhtml側で既にバリデーションがかかっている -->
+          </div>
+          <div class="form-group">
+            <label for="url">ホームページ</label>
+            <input type="url" class="form-control" id="url" name="url" value="<?php echo h($_POST['url']) ?>">
+            <!-- エラーチェックの際にtype="url"という形でhtml側で既にバリデーションがかかっている -->
+          </div>
+      
 
-      <input type="submit" name="btn_confirm" value="確認する">
+          <div class="form-check form-check-inline">性別
+            <input type="form-check-input" id="gender1" type="radio" name="gender" value="male">
+            <label class="form-check-label" for="gender1">男性</label>
+            <input type="form-check-input" id="gender2" type="radio" name="gender" value="female">
+            <label class="form-check-label" for="gender2">女性</label>
+          </div>
+
+          <div class="form-group">
+            <label for="age">年齢</label>
+              <select class="form-control" id="age" name="age">
+                <option value="">選択してください</option>
+                <option value="1">〜19歳</option>
+                <option value="2">20歳〜29歳</option>
+                <option value="3">30歳〜39歳</option>
+                <option value="4">40歳〜49歳</option>
+                <option value="5">50歳〜59歳</option>
+                <option value="6">60歳〜</option>
+              </select>
+          </div>
+
+          <div class="form-group">
+            <label for="contact">お問い合わせ内容</label>
+            <textarea class="form-control" id="contact" row="3" name="contact" value="<?php echo h($_POST['contact']) ?>"></textarea>
+          </div>
+          
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="caution">
+            <label class="form-check-label" for="caution">注意事項に同意する</label>
+          </div>
+
+      <input class="btn btn-info" type="submit" name="btn_confirm" value="確認する">
       <input type="hidden" name="csrf" value="<?php echo $token ?>">
       <!-- 合言葉を設定 -->
     </form>
+    </div>
+    </div>
+    </div>
   <?php endif ?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
