@@ -119,11 +119,11 @@ if (!empty($_POST["btn_submit"])) {
       <input type="text" name="your_name" value="<?php echo h($_POST['your_name']) ?>">
       <br>
       メールアドレス
-      <input type="text" name="email" value="<?php echo h($_POST['email']) ?>">
+      <input type="email" name="email" value="<?php echo h($_POST['email']) ?>">
       <!-- エラーチェックの際にtype="email"という形でhtml側で既にバリデーションがかかっている -->
       <br>
       ホームページ
-      <input type="text" name="url" value="<?php echo h($_POST['url']) ?>">
+      <input type="url" name="url" value="<?php echo h($_POST['url']) ?>">
       <!-- エラーチェックの際にtype="url"という形でhtml側で既にバリデーションがかかっている -->
       <br>
       性別
