@@ -40,10 +40,12 @@ if (!empty($_POST["btn_submit"])) {
       <form method="POST" action="input2.php">
         氏名
         <?php echo h($_POST["your_name"]) ; ?>
+        <!-- 関数 -->
         <!-- htmlspecialcharsを省略しh -->
         <br>
         メールアドレス
         <?php echo h($_POST["email"]) ; ?>
+        <!-- 関数 -->
         <!-- htmlspecialcharsを省略しh -->
         <br>
         ホームページ
@@ -117,14 +119,16 @@ if (!empty($_POST["btn_submit"])) {
       <input type="text" name="your_name" value="<?php echo h($_POST['your_name']) ?>">
       <br>
       メールアドレス
-      <input type="email" name="email" value="<?php echo h($_POST['email']) ?>">
+      <input type="text" name="email" value="<?php echo h($_POST['email']) ?>">
+      <!-- エラーチェックの際にtype="email"という形でhtml側で既にバリデーションがかかっている -->
       <br>
       ホームページ
-      <input type="url" name="url" value="<?php echo h($_POST['url']) ?>">
+      <input type="text" name="url" value="<?php echo h($_POST['url']) ?>">
+      <!-- エラーチェックの際にtype="url"という形でhtml側で既にバリデーションがかかっている -->
       <br>
       性別
       <input type="radio" name="gender" value="0">男性
-      <input type="radio" naem="gender" value="1">女性
+      <input type="radio" name="gender" value="1">女性
       <br>
       年齢
       <select name="age">
