@@ -3,7 +3,7 @@
 // echo __FILE__;
 // // /Applications/MAMP/htdocs/php_test/form/mainte/test.php
 
-
+//ファイル名の先頭に.をつけることで隠しファイルとなる
 
 // //パスワード(暗号化)
 // //crypt
@@ -18,7 +18,7 @@
 //ファイル丸ごと読み込む
 $contactFile = '.contact.dat';
 
-$fileContents = file_get_contents($contactFile);
+// $fileContents = file_get_contents($contactFile);
 //ファイルの内容を全て文字列に読み込む
 
 // echo $fileContents;
@@ -27,7 +27,7 @@ $fileContents = file_get_contents($contactFile);
 // file_put_contents($contactFile, 'テストです');
 // //全ての文字を消して上書きした形になる
 
-$addText = 'テストです' . "\n";
+// $addText = 'テストです' . "\n";
 //改行して文字列を追記する
 
 //ファイルに書き込み(追記)
@@ -40,14 +40,27 @@ $addText = 'テストです' . "\n";
 //配列 file foreach 
 //区切る explode
 
-$allData = file($contactFile);
+// $allData = file($contactFile);
 
-foreach ($allData as $lineData) {
-    $lines = explode(',', $lineData);
-    //explodeでコンマごと切り取る
-    //explodeの返り値も配列になっている
-    echo $lines[0] . '<br>';
-    echo $lines[1] . '<br>';
-    echo $lines[2] . '<br>';
-}
+// foreach ($allData as $lineData) {
+//     $lines = explode(',', $lineData);
+//     //explodeでコンマごと切り取る
+//     //explodeの返り値も配列になっている
+//     echo $lines[0] . '<br>';
+//     echo $lines[1] . '<br>';
+//     echo $lines[2] . '<br>';
+// }
 
+
+//ストリーム型
+$contents = fopen($contactFile, 'a+');
+//2 アクセス形式を指定
+//今回は読み込み書き出し形式でオープン
+
+$addText = '1行追記' . "\n";
+
+fwrite($contents, $addText);
+//書き込む
+
+fclose($contents);
+//ファイルを閉じる
