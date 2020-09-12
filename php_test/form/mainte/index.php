@@ -31,7 +31,7 @@ $stmt->bindValue('id', 2, PDO::PARAM_INT); //紐付け
 
 $stmt->execute(); //実行
 
-$result = $stmt->fetchAll();
+$result = $stmt->fetchall();
 
 echo '<pre>';
 var_dump($result);
@@ -55,7 +55,7 @@ try {
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue('id', 3, PDO::PARAM_INT);
     $stmt->execute();
-    
+
     $pdo->commit();
 } catch (PDOException $e) {
     $pdo->rollBack(); //更新のキャンセル
