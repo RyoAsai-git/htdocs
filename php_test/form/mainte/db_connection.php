@@ -10,6 +10,7 @@ try {
     $pdo = new PDO(DB_HOST, DB_USER, DB_PASSWORD, [
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         //データベースの情報を取得するとき連想配列でとってくる
+        //ASSOC アソシエーション？
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         //例外を表示
         PDO::ATTR_EMULATE_PREPARES => false,
