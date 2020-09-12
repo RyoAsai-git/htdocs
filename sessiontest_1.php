@@ -33,6 +33,10 @@ session_start();
             echo '<pre>';
 
             // setcookie("id", 'aaa', time() - 1800, '/');
+            //1 キー
+            //2 バリュー 
+            //3 クッキーの有効期限 
+            //4 path クッキーを有効としたいpathをセットするとドメイン下で全てで有効になる 詳しくはphp.net
 
             echo '<pre>';
             var_dump($_COOKIE);
