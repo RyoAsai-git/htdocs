@@ -1,0 +1,13 @@
+composer.json
+その時の最新版をrequireする
+
+composer.lockは
+完全に固定する
+依存関係を含めた全てのバージョンを指定してインストール
+
+composerを使うとたくさんのライブラリを使うことができる
+
+Laravelでもライブラリが存在する
+composerで管理する
+
+laravelを使っても使わなくてもcomposerは重要
