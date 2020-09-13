@@ -13,6 +13,7 @@ function defaultValue($string = null) {
 defaultValue();
 echo '<br>';
 //です。
+//仮に関数defaultValueの初期値が空()だったらエラー
 
 //引数あり
 defaultValue('テスト');
