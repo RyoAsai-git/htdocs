@@ -82,3 +82,21 @@ make:model
 make:controller
 
 コマンドを拡張して自分で作ることもできる
+
+
+laravel モデル
+データベースとのやりとりをphpで記述できるメリット 
+Eloquentという名称
+ORM ORマッパーという機能
+Object-Relational Mapping オブジェクト関係マッピング
+
+モデル作成
+php artisan make:model Test
+//appフォルダの直下にあるため modelが増えるほど見づらくなってしまう
+//Modelsのフォルダを作成して入れるのが一般的
+
+php artisan make:model Models/Test
+//一般的
+
+php artisan make:model Models/Test -mc
+//マイグレーションファイル、コントローラーファイルをまとめて作る -mc
