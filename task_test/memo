@@ -1,0 +1,62 @@
+laravel 
+
+php artisan serve 
+http:127.0.0.1:8000
+
+
+タイムゾーン設定 言語設定
+config/app.php
+'timezone' => 'Asia/Tokyo';
+'locale' => 'ja';
+
+
+DB文字コード設定
+config/database.php
+'charset' => 'utf8';
+'collation' => 'utf8_unicode_ci'
+
+
+デバックバーのインストール
+composer require barryvdh/laravel-debugbar
+php artisan serveで確認
+.envのDEBUGで切り替える
+laravel デバッガー常時起動状態になっている
+.envファイルでAPP_DEBUG=true をAPP_DEBUG=falseに変更で消える
+
+デバッガーをtrueに変更しても表示されない場合はキャッシュとコンフィグをクリアすると良い
+php artisan cache:clear
+php artisan config:clear
+
+
+データベース設定
+.envのここを変更
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+
+phpMyAdminでデータベースを作成し、privilegesでユーザーを作成する ユーザー名、パスワード設定
+DB_DATABASEにデータベース名
+DB_USERNAMEにprivilegesで作成したユーザー名
+DB_PASSWORDにprivilegesで作成したユーザーのパスワード
+
+接続確認方法
+laravelにはインストール時にデータベース内のテーブルを作る機能がある
+php artisan migrate
+エラー発生
+
+.env こちらへ変更
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=laravel_task
+DB_USERNAME=laravel_user
+DB_PASSWORD=password123
+
+privilegesで作成したユーザーのホスト名を%からlocalhostへ変更
+.env DB_HOST=127.0.0.1をDB_HOST=localhostへ変更
+config/database.phpの'unix_socket' => 'env('DB_SOCKET', '')', を 'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',へ変更
+エラー解決
+laravelとデータベースの接続完了
