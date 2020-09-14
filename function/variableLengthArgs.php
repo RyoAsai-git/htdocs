@@ -22,8 +22,8 @@ function combine(string ...$name): string {
     return $combineName;
 }
 
-$lName = '名前';
-$fName = '苗字';
+$fName = '名前';
+$lName = '苗字';
 $name1 = combine($fName, $lName);
 
 echo '結合結果' . $name1;
