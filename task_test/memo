@@ -71,3 +71,14 @@ laravel
 
 laravelのトップページ(welcome)はクライアントからのリクエストにルーティングー>ビューと表示している
 今回はコントローラーを経由していない
+
+
+Artisan(職人)
+php artisan list コマンド一覧
+
+よく使う？
+make:migration
+make:model
+make:controller
+
+コマンドを拡張して自分で作ることもできる
