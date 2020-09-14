@@ -60,3 +60,14 @@ privilegesで作成したユーザーのホスト名を%からlocalhostへ変更
 config/database.phpの'unix_socket' => 'env('DB_SOCKET', '')', を 'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',へ変更
 エラー解決
 laravelとデータベースの接続完了
+
+
+laravel ルート ビュー
+laravel
+ルーティング
+コントローラー
+モデル <-> データベース
+ビュー
+
+laravelのトップページ(welcome)はクライアントからのリクエストにルーティングー>ビューと表示している
+今回はコントローラーを経由していない

@@ -12,5 +12,9 @@
 */
 
 Route::get('/', function () {
+    // '/'アドレス ここにアクセスしたら処理を渡す
+    // 処理とはここでのreturn view('welcome');
     return view('welcome');
+    // viewファイルを表示しろという指令
+    // viewファイルはresourcesのwelcome.blade.php
 });
