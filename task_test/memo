@@ -159,3 +159,37 @@ auth 認証
 bcrypt パスワードの暗号化
 collect コレクション型のデータ作成時に使用
 factory ダミーデータ作成
+
+
+コレクション型
+TestController内でddで表示したもの
+var_dumpで出力するとobject型で表示、collectionと出てくるが見辛い
+
+配列を拡張したもの laravel独自のもの
+データベースからデータを取って来た際はコレクション型になっている
+コレクション型の専用関数多数
+メソッドチェーンで記述可能
+
+all, chunk, get, pluck, whereln, toArray
+
+$collection = collection([1, 2, 3]);
+ヘルパ関数collectionでコレクションは作成できる
+
+all 全取得
+    collect([1, 2, 3])->all(); //[1, 2, 3]
+
+chunk ひとまとまりにして取得 
+toArray 配列で取得
+    $collection = collect([1, 2, 3, 4, 5, 6, 7]);
+    $chunks = $collection->chunk(4);
+    $chunks->toArray();
+    // [[1, 2, 3, 4], [5, 6, 7]]  4つごとに区切る関数
+
+get 取得
+pluck 抜き取る
+whereln 条件指定
+
+count アイテム数を返す
+    $collection = collect[(1, 2, 3, 4)];
+    $collection->count();
+    // 4
