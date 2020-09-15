@@ -133,3 +133,13 @@ $test->save();
 
 App\Models\Test::all();
 //Testに入っているデータを全て表示
+
+
+コントローラー(処理)
+app/Http/Controllers/
+
+php artisan make:controller TestController
+ファイル名にControllerとつけるのがわかりやすく一般的
+
+laravelはMVCモデルを採用 クライアントからルーティングを通って、コントローラーに処理を行い、結果をビューで返す
+実際の処理を書くコントローラー
