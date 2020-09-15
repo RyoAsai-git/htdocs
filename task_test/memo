@@ -143,3 +143,19 @@ php artisan make:controller TestController
 
 laravelはMVCモデルを採用 クライアントからルーティングを通って、コントローラーに処理を行い、結果をビューで返す
 実際の処理を書くコントローラー
+
+
+ヘルパ関数
+phpの関数とは別 laravelが用意している便利な関数
+route, auth, app, bcrypt
+collect, dd, env, factory, old, viewなど
+
+laravelのドキュメント参照
+
+dd $valuesの中身を確認するために使用controllerで使用
+view viewファイルを表示するためにcontrollerで使用
+
+auth 認証
+bcrypt パスワードの暗号化
+collect コレクション型のデータ作成時に使用
+factory ダミーデータ作成
