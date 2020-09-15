@@ -100,3 +100,19 @@ php artisan make:model Models/Test
 
 php artisan make:model Models/Test -mc
 //マイグレーションファイル、コントローラーファイルをまとめて作る -mc
+
+
+マイグレーション
+DBテーブルの履歴管理
+新しいテーブル作成やカラム追加、削除などの履歴
+
+php artisan make:migration create_tests_table 複数形 接続しているデータベースにlaravel_taskにtestテーブル作成
+php artisan migrationで作成
+php artisan migrate:fresh または refresh
+
+モデルは単数系 マイグレーションは複数形
+Person->people
+
+database/migration/にマイグレーションファイルが作成される
+ex
+$table->string("text",100); 接続しているデータベースにlaravel_taskにtestテーブルがあり、そこにtextカラムを作成
