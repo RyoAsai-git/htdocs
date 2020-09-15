@@ -116,3 +116,20 @@ Person->people
 database/migration/にマイグレーションファイルが作成される
 ex
 $table->string("text",100); 接続しているデータベースにlaravel_taskにtestテーブルがあり、そこにtextカラムを作成
+
+
+tinker (DB簡易接続)
+データベースと簡易接続する仕組み
+php artisan tinkerで起動
+
+$test = new App\Models\test;
+// モデルをインスタンス化
+
+$test->text = "aaa";
+//先ほど作ったtextカラムに文字列aaaを追加
+
+$test->save();
+//保存する
+
+App\Models\Test::all();
+//Testに入っているデータを全て表示
