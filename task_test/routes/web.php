@@ -18,3 +18,11 @@ Route::get('/', function () {
     // viewファイルを表示しろという指令
     // viewファイルはresourcesのwelcome.blade.php
 });
+//このままだとコントローラーを経由せずそのままビューファイルに飛んでしまう
+
+Route::get('tests/test', 'TestController@index');
+//tests/testにアクセスしたらここに処理を飛ばすという指示  
+// http://127.0.0.1:8000/tests/testでアクセスできる 
+//TestControllerのメソッド名を指定
+
+//要はtests/testにアクセスしたらTestControllerに飛ばしてという処理
