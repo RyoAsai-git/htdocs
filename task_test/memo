@@ -291,3 +291,46 @@ Blade
     ビューとコントローラー、モデルの処理が分割される
     ビューは表示だけに専念できる
     コントローラーは処理に専念できる
+
+
+フロントエンド
+    ニーズ
+    クライアント 使いやすい 表示が早い
+    開発側      作りやすい 管理しやすい
+
+    フロントエンドはカオスな状態
+    HTML pug
+    CSS sass bootstrap
+    JavaScript Vue.js Reactなど
+    
+    フロントエンドエンド必須ツール
+    node.js npm
+    webpack
+    BABEL
+    Loader
+
+    カオスな状態をコンパイルして昔の書き方に戻して表示する
+    バンドル webpackを用いてまとめる
+
+    管理するのがnode.js npm
+
+    laravelでも設定必要
+    laravel-ui
+    laravel-mix  webpackのパッカー
+    webpack.mix.js laravelーmixの設定ファイル laravelに既に存在
+        webpack.mix.jsの中身
+        バンドラーでまとめる
+        mix.js('resources/js/app.js', 'public/js')
+        // resources/js/app.js を public/jsにまとめる
+        .sass('resources/sass/app.scss', 'public/css');
+        // app.scssをcssに書き直す
+
+    Node.js/npm 別途インストール
+    フロントエンド開発には必須
+    package.json / package.lock 設定管理ファイル
+        既にlaravelに存在
+        devDependenciesの記述以下にフロントエンドでインストールしようとしているファイル
+
+    composerにはcomposer.jsonという管理ファイルがあったが、上はそれのnpmバージョン
+
+
