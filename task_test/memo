@@ -1,236 +1,237 @@
 laravel 
 
-php artisan serve 
-http:127.0.0.1:8000
+ローカルサーバー起動
+    php artisan serve 
+    http:127.0.0.1:8000
 
 
 タイムゾーン設定 言語設定
-config/app.php
-'timezone' => 'Asia/Tokyo';
-'locale' => 'ja';
+    config/app.php
+    'timezone' => 'Asia/Tokyo';
+    'locale' => 'ja';
 
 
 DB文字コード設定
-config/database.php
-'charset' => 'utf8';
-'collation' => 'utf8_unicode_ci'
+    config/database.php
+    'charset' => 'utf8';
+    'collation' => 'utf8_unicode_ci'
 
 
 デバックバーのインストール
-composer require barryvdh/laravel-debugbar
-php artisan serveで確認
-.envのDEBUGで切り替える
-laravel デバッガー常時起動状態になっている
-.envファイルでAPP_DEBUG=true をAPP_DEBUG=falseに変更で消える
+    composer require barryvdh/laravel-debugbar
+    php artisan serveで確認
+    .envのDEBUGで切り替える
+    laravel デバッガー常時起動状態になっている
+    .envファイルでAPP_DEBUG=true をAPP_DEBUG=falseに変更で消える
 
-デバッガーをtrueに変更しても表示されない場合はキャッシュとコンフィグをクリアすると良い
-php artisan cache:clear
-php artisan config:clear
+    デバッガーをtrueに変更しても表示されない場合はキャッシュとコンフィグをクリアすると良い
+    php artisan cache:clear
+    php artisan config:clear
 
 
 データベース設定
-.envのここを変更
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=laravel
-DB_USERNAME=root
-DB_PASSWORD=
+    .envのここを変更
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=laravel
+    DB_USERNAME=root
+    DB_PASSWORD=
 
-phpMyAdminでデータベースを作成し、privilegesでユーザーを作成する ユーザー名、パスワード設定
-DB_DATABASEにデータベース名
-DB_USERNAMEにprivilegesで作成したユーザー名
-DB_PASSWORDにprivilegesで作成したユーザーのパスワード
+    phpMyAdminでデータベースを作成し、privilegesでユーザーを作成する ユーザー名、パスワード設定
+    DB_DATABASEにデータベース名
+    DB_USERNAMEにprivilegesで作成したユーザー名
+    DB_PASSWORDにprivilegesで作成したユーザーのパスワード
 
-接続確認方法
-laravelにはインストール時にデータベース内のテーブルを作る機能がある
-php artisan migrate
-エラー発生
+    接続確認方法
+    laravelにはインストール時にデータベース内のテーブルを作る機能がある
+    php artisan migrate
+    エラー発生
 
-.env こちらへ変更
-DB_CONNECTION=mysql
-DB_HOST=localhost
-DB_PORT=3306
-DB_DATABASE=laravel_task
-DB_USERNAME=laravel_user
-DB_PASSWORD=password123
+    .env こちらへ変更
+    DB_CONNECTION=mysql
+    DB_HOST=localhost
+    DB_PORT=3306
+    DB_DATABASE=laravel_task
+    DB_USERNAME=laravel_user
+    DB_PASSWORD=password123
 
-privilegesで作成したユーザーのホスト名を%からlocalhostへ変更
-.env DB_HOST=127.0.0.1をDB_HOST=localhostへ変更
-config/database.phpの'unix_socket' => 'env('DB_SOCKET', '')', を 'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',へ変更
-エラー解決
-laravelとデータベースの接続完了
+    privilegesで作成したユーザーのホスト名を%からlocalhostへ変更
+    .env DB_HOST=127.0.0.1をDB_HOST=localhostへ変更
+    config/database.phpの'unix_socket' => 'env('DB_SOCKET', '')', を 'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',へ変更
+    エラー解決
+    laravelとデータベースの接続完了
 
 
 laravel ルート ビュー
-laravel
-ルーティング
-コントローラー
-モデル <-> データベース
-ビュー
+    laravel
+    ルーティング
+    コントローラー
+    モデル <-> データベース
+    ビュー
 
-laravelのトップページ(welcome)はクライアントからのリクエストにルーティングー>ビューと表示している
-今回はコントローラーを経由していない
+    laravelのトップページ(welcome)はクライアントからのリクエストにルーティングー>ビューと表示している
+    今回はコントローラーを経由していない
 
 
 Artisan(職人)
-php artisan list コマンド一覧
+    php artisan list コマンド一覧
 
-よく使う？
-make:migration
-make:model
-make:controller
+    よく使う？
+    make:migration
+    make:model
+    make:controller
 
-コマンドを拡張して自分で作ることもできる
+    コマンドを拡張して自分で作ることもできる
 
 
 laravel モデル
-データベースとのやりとりをphpで記述できるメリット 
-Eloquentという名称
-ORM ORマッパーという機能
-Object-Relational Mapping オブジェクト関係マッピング
+    データベースとのやりとりをphpで記述できるメリット 
+    Eloquentという名称
+    ORM ORマッパーという機能
+    Object-Relational Mapping オブジェクト関係マッピング
 
-モデル作成
-php artisan make:model Test
-//appフォルダの直下にあるため modelが増えるほど見づらくなってしまう
-//Modelsのフォルダを作成して入れるのが一般的
+    モデル作成
+    php artisan make:model Test
+    //appフォルダの直下にあるため modelが増えるほど見づらくなってしまう
+    //Modelsのフォルダを作成して入れるのが一般的
 
-php artisan make:model Models/Test
-//一般的
+    php artisan make:model Models/Test
+    //一般的
 
-php artisan make:model Models/Test -mc
-//マイグレーションファイル、コントローラーファイルをまとめて作る -mc
+    php artisan make:model Models/Test -mc
+    //マイグレーションファイル、コントローラーファイルをまとめて作る -mc
 
 
 マイグレーション
-DBテーブルの履歴管理
-新しいテーブル作成やカラム追加、削除などの履歴
+    DBテーブルの履歴管理
+    新しいテーブル作成やカラム追加、削除などの履歴
 
-php artisan make:migration create_tests_table 複数形 接続しているデータベースにlaravel_taskにtestテーブル作成
-php artisan migrationで作成
-php artisan migrate:fresh または refresh
+    php artisan make:migration create_tests_table 複数形 接続しているデータベースにlaravel_taskにtestテーブル作成
+    php artisan migrationで作成
+    php artisan migrate:fresh または refresh
 
-モデルは単数系 マイグレーションは複数形
-Person->people
+    モデルは単数系 マイグレーションは複数形
+    Person->people
 
-database/migration/にマイグレーションファイルが作成される
-ex
-$table->string("text",100); 接続しているデータベースにlaravel_taskにtestテーブルがあり、そこにtextカラムを作成
+    database/migration/にマイグレーションファイルが作成される
+    ex
+    $table->string("text",100); 接続しているデータベースにlaravel_taskにtestテーブルがあり、そこにtextカラムを作成
 
 
 tinker (DB簡易接続)
-データベースと簡易接続する仕組み
-php artisan tinkerで起動
+    データベースと簡易接続する仕組み
+    php artisan tinkerで起動
 
-$test = new App\Models\test;
-// モデルをインスタンス化
+    $test = new App\Models\test;
+    // モデルをインスタンス化
 
-$test->text = "aaa";
-//先ほど作ったtextカラムに文字列aaaを追加
+    $test->text = "aaa";
+    //先ほど作ったtextカラムに文字列aaaを追加
 
-$test->save();
-//保存する
+    $test->save();
+    //保存する
 
-App\Models\Test::all();
-//Testに入っているデータを全て表示
+    App\Models\Test::all();
+    //Testに入っているデータを全て表示
 
 
-コントローラー(処理)
-app/Http/Controllers/
+    コントローラー(処理)
+    app/Http/Controllers/
 
-php artisan make:controller TestController
-ファイル名にControllerとつけるのがわかりやすく一般的
+    php artisan make:controller TestController
+    ファイル名にControllerとつけるのがわかりやすく一般的
 
-laravelはMVCモデルを採用 クライアントからルーティングを通って、コントローラーに処理を行い、結果をビューで返す
-実際の処理を書くコントローラー
+    laravelはMVCモデルを採用 クライアントからルーティングを通って、コントローラーに処理を行い、結果をビューで返す
+    実際の処理を書くコントローラー
 
 
 ヘルパ関数
-phpの関数とは別 laravelが用意している便利な関数
-route, auth, app, bcrypt
-collect, dd, env, factory, old, viewなど
+    phpの関数とは別 laravelが用意している便利な関数
+    route, auth, app, bcrypt
+    collect, dd, env, factory, old, viewなど
 
-laravelのドキュメント参照
+    laravelのドキュメント参照
 
-dd $valuesの中身を確認するために使用controllerで使用
-view viewファイルを表示するためにcontrollerで使用
+    dd $valuesの中身を確認するために使用controllerで使用
+    view viewファイルを表示するためにcontrollerで使用
 
-auth 認証
-bcrypt パスワードの暗号化
-collect コレクション型のデータ作成時に使用
-factory ダミーデータ作成
+    auth 認証
+    bcrypt パスワードの暗号化
+    collect コレクション型のデータ作成時に使用
+    factory ダミーデータ作成
 
 
 コレクション型
-TestController内でddで表示したもの
-var_dumpで出力するとobject型で表示、collectionと出てくるが見辛い
+    TestController内でddで表示したもの
+    var_dumpで出力するとobject型で表示、collectionと出てくるが見辛い
 
-配列を拡張したもの laravel独自のもの
-データベースからデータを取って来た際はコレクション型になっている
-コレクション型の専用関数多数
-メソッドチェーンで記述可能
+    配列を拡張したもの laravel独自のもの
+    データベースからデータを取って来た際はコレクション型になっている
+    コレクション型の専用関数多数
+    メソッドチェーンで記述可能
 
-all, chunk, get, pluck, whereln, toArray
+    all, chunk, get, pluck, whereln, toArray
 
-$collection = collection([1, 2, 3]);
-ヘルパ関数collectionでコレクションは作成できる
+    $collection = collection([1, 2, 3]);
+    ヘルパ関数collectionでコレクションは作成できる
 
-all 全取得
-    collect([1, 2, 3])->all(); //[1, 2, 3]
+    all 全取得
+        collect([1, 2, 3])->all(); //[1, 2, 3]
 
-chunk ひとまとまりにして取得 
-toArray 配列で取得
-    $collection = collect([1, 2, 3, 4, 5, 6, 7]);
-    $chunks = $collection->chunk(4);
-    $chunks->toArray();
-    // [[1, 2, 3, 4], [5, 6, 7]]  4つごとに区切る関数
+    chunk ひとまとまりにして取得 
+    toArray 配列で取得
+        $collection = collect([1, 2, 3, 4, 5, 6, 7]);
+        $chunks = $collection->chunk(4);
+        $chunks->toArray();
+        // [[1, 2, 3, 4], [5, 6, 7]]  4つごとに区切る関数
 
-get 取得
-pluck 抜き取る
-whereln 条件指定
+    get 取得
+    pluck 抜き取る
+    whereln 条件指定
 
-count アイテム数を返す
-    $collection = collect[(1, 2, 3, 4)];
-    $collection->count();
-    // 
+    count アイテム数を返す
+        $collection = collect[(1, 2, 3, 4)];
+        $collection->count();
+        // 
 
 
 クエリビルダ
-データベースへアクセスする際にSQLで書くべきものをphpで書けるようにしたもの
-SQLインジェクションから守ることが可能 PDOの手順を踏まなくてもセキュアな状態で操作ができる
+    データベースへアクセスする際にSQLで書くべきものをphpで書けるようにしたもの
+    SQLインジェクションから守ることが可能 PDOの手順を踏まなくてもセキュアな状態で操作ができる
 
-Select where groupByなど
+    Select where groupByなど
 
-DB::table(テーブル名)->と繋ぐ
+    DB::table(テーブル名)->と繋ぐ
 
-簡単にデータを取ってくるにはコレクション型の方が良い 関数がたくさんあるため
-条件が細かくなって来たらクエリビルダを使うと良い 細かい条件指定が可能
-それでも厳しいならrawメソッドでSQLを直接使用
-ただしrawメソッドはSQLインジェクションの可能性もあるので、注意    ユーザーからの入力がなければ良いが
+    簡単にデータを取ってくるにはコレクション型の方が良い 関数がたくさんあるため
+    条件が細かくなって来たらクエリビルダを使うと良い 細かい条件指定が可能
+    それでも厳しいならrawメソッドでSQLを直接使用
+    ただしrawメソッドはSQLインジェクションの可能性もあるので、注意    ユーザーからの入力がなければ良いが
 
 
 Facade（正面入口）
-複雑な関連を持つクラス群を簡単に利用するための窓口を用意するデザインパターン
-アクセスする場所を1つにし、そこにアクセスしたら様々なシステムがあり、それを利用できる仕組み
+    複雑な関連を持つクラス群を簡単に利用するための窓口を用意するデザインパターン
+    アクセスする場所を1つにし、そこにアクセスしたら様々なシステムがあり、それを利用できる仕組み
 
-Facadeクラス
-laravelが最初に用意しているもの
+    Facadeクラス
+    laravelが最初に用意しているもの
 
-Auth Blade DB 
-File ファイル設定
-Hash パスワード
-Route ルーティング
+    Auth Blade DB 
+    File ファイル設定
+    Hash パスワード
+    Route ルーティング
 
-app/config/app.php内でfacadeの設定
-'provider'と'aliases'の箇所でfacadeとして定義さreている
+    app/config/app.php内でfacadeの設定
+    'provider'と'aliases'の箇所でfacadeとして定義さreている
 
-use Illuminate\Support\Facade\DB の DBの箇所を変えることで他のFacadeにアクセスできる
+    use Illuminate\Support\Facade\DB の DBの箇所を変えることで他のFacadeにアクセスできる
 
-ちなみにIlluminate\Support\Facadeはどこかというと
-composerでインストールされているもの 
-vender/laravel/framework/src/Illuminateの中にSupport
-Support内にFacade
-Facade内にDB
-これらを引っ張って来て使っている
+    ちなみにIlluminate\Support\Facadeはどこかというと
+    composerでインストールされているもの 
+    vender/laravel/framework/src/Illuminateの中にSupport
+    Support内にFacade
+    Facade内にDB
+    これらを引っ張って来て使っている
 
-自分でFacadeを作って呼び出すこともできる
+    自分でFacadeを作って呼び出すこともできる
