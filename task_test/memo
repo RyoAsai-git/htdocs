@@ -251,3 +251,43 @@ laravel起動処理とDIコンテナ
 
     DI クラスの内部でインスタンス化せずに、外部で用意して注入すること
     細かく見ると難しい
+
+
+Blade
+    laravelで組み込まれたテンプレートエンジン
+    {{}}でエスケープ処理して実行
+    ＠csrfでcsrf対策
+    @foreach @endforeachで配列表示
+    @section @yieldなどでテンプレート読み込み
+
+    bladeビューにはblade.phpをつける resource/view内に配置
+
+    @if @endif
+    @auth @endauth ログイン機能
+    @構文でブレード構文
+
+    {{}}はXSS攻撃を防ぐため、自動的にhtmlspecialchars関数がかかる
+    セキュリティ対策
+
+    ex
+    @foreach($values as $value)
+    {{$value->id}}<br>
+    {{$value->text}}<br>
+    @endforeach
+
+    レイアウト定義 ドキュメントに詳細あり
+    レイアウトを分割できる
+    resources/views/layouts/app.blade.phpとしてマスターのレイアウトを保存
+    ファイル内で
+    @section @yieldを用いて入り込むレイアウトを読み込みつつ
+
+    読み込むファイルは
+    resources/views/child.blade.phpとして保存
+    @extends('')で親のビューファイルを読み込むことができる
+
+    php requireで持って来ていた 
+    bladeはblade構文を使って、セキュリティを満たした上で作成ができる
+
+    ビューとコントローラー、モデルの処理が分割される
+    ビューは表示だけに専念できる
+    コントローラーは処理に専念できる
