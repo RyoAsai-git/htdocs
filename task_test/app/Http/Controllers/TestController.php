@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Test;
 //作成したModelsファイルのTestを持ってくることができる
 
+use Illuminate\Support\Facades\DB;
+//クエリビルダを使うための記述
+//DBファサードをインポート
+
 class TestController extends Controller
 {
     //
@@ -14,6 +18,59 @@ class TestController extends Controller
 
         $values = Test::all();
         //変数$valueにモデル名のall
+
+
+        // $tests = DB::table('tests')->get();
+        //DBコロン staticなメソッド
+        //table testsへアクセス
+
+        $tests = DB::table('tests')
+        ->select('id')
+        ->get();
+        //このようにメソッドチェーンで書くこともできる
+        //SQLで条件指定したのをより簡単に書くことができる
+        // ex
+        // ->select()
+        // ->where()
+        // ->groupBy()
+        // ->get();
+
+        //rawメソッドを使えば生のSQLを記述できる
+        // ex
+        // selectRaw('SQL文')
+
+        dd($tests);
+        //eloquentと取るのに比べて中身が少ない？
+        //画面上で表示される最低限の情報?
+
+        // Illuminate\Support\Collection {#366 ▼
+        //     #items: array:2 [▼
+        //       0 => {#1262 ▼
+        //         +"id": 1
+        //         +"text": "aaa"
+        //         +"created_at": "2020-09-15 16:54:33"
+        //         +"updated_at": "2020-09-15 16:54:33"
+        //       }
+        //       1 => {#1263 ▼
+        //         +"id": 2
+        //         +"text": "bbb"
+        //         +"created_at": "2020-09-15 16:58:47"
+        //         +"updated_at": "2020-09-15 16:58:47"
+        //       }
+        //     ]
+        //   }
+
+        // select('id')->get();
+        // Illuminate\Support\Collection {#366 ▼
+        //     #items: array:2 [▼
+        //       0 => {#1262 ▼
+        //         +"id": 1
+        //       }
+        //       1 => {#1263 ▼
+        //         +"id": 2
+        //       }
+        //     ]
+        //   }
 
         // dd($values);
         // ddコマンド
