@@ -335,27 +335,39 @@ Blade
 
 
 laravel-ui
-laravel user interface
-laravel 6.0からフロントエンド側が分離
+    laravel user interface
+    laravel 6.0からフロントエンド側が分離
 
-マニュアルのJavaScriptとCSS scaffoldの項目参照
+    マニュアルのJavaScriptとCSS scaffoldの項目参照
 
-composer require laravel/ui:^1.0 --dev
+    composer require laravel/ui:^1.0 --dev
 
-インストール完了後、フロントエンドのscaffoldをインストールする
-php artisan ui bootstrap
-php artisan ui vue
-php artisan ui react
-から選ぶ
+    インストール完了後、フロントエンドのscaffoldをインストールする
+    php artisan ui bootstrap
+    php artisan ui vue
+    php artisan ui react
+    から選ぶ
 
-ログイン/ユーザー登録機能のscaffoldを作成
-php artisan ui bootstrap --auth
-php artisan ui vue --auth
-php artisan ui react --auth
+    ログイン/ユーザー登録機能のscaffoldを作成
+    php artisan ui bootstrap --auth
+    php artisan ui vue --auth
+    php artisan ui react --auth
 
-......
+    ......
 
-最後にnpm run devを行うとresources内にjs sassフォルダが作成される
-この中身がpublic/css public/jsにコンパイルされまとめれている
+    最後にnpm run devを行うとresources内にjs sassフォルダが作成される
+    この中身がpublic/css public/jsにコンパイルされまとめれている
 
-仮にJSを変えてうまくいかないときにはきちんとコンパイルされpublicに記述されているか確認しても良い
+    仮にJSを変えてうまくいかないときにはきちんとコンパイルされpublicに記述されているか確認しても良い
+
+
+npm run watch
+    フロント側に変更があった際に、逐一npm run devを記述するのは手間
+    フロント側のファイルに変更があれば、自動的にコンパイルしてくれるのがwatch
+
+    使用するにはコンソールを常に開く必要
+    php artisan serveで仮想サーバーを開く
+    npm run watchでフロントで変更がないかを監視
+
+    変更があればpublicに反映される
+    
