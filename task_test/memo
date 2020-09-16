@@ -207,3 +207,30 @@ DB::table(テーブル名)->と繋ぐ
 条件が細かくなって来たらクエリビルダを使うと良い 細かい条件指定が可能
 それでも厳しいならrawメソッドでSQLを直接使用
 ただしrawメソッドはSQLインジェクションの可能性もあるので、注意    ユーザーからの入力がなければ良いが
+
+
+Facade（正面入口）
+複雑な関連を持つクラス群を簡単に利用するための窓口を用意するデザインパターン
+アクセスする場所を1つにし、そこにアクセスしたら様々なシステムがあり、それを利用できる仕組み
+
+Facadeクラス
+laravelが最初に用意しているもの
+
+Auth Blade DB 
+File ファイル設定
+Hash パスワード
+Route ルーティング
+
+app/config/app.php内でfacadeの設定
+'provider'と'aliases'の箇所でfacadeとして定義さreている
+
+use Illuminate\Support\Facade\DB の DBの箇所を変えることで他のFacadeにアクセスできる
+
+ちなみにIlluminate\Support\Facadeはどこかというと
+composerでインストールされているもの 
+vender/laravel/framework/src/Illuminateの中にSupport
+Support内にFacade
+Facade内にDB
+これらを引っ張って来て使っている
+
+自分でFacadeを作って呼び出すこともできる
