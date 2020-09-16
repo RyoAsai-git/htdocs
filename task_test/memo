@@ -334,3 +334,28 @@ Blade
     composerにはcomposer.jsonという管理ファイルがあったが、上はそれのnpmバージョン
 
 
+laravel-ui
+laravel user interface
+laravel 6.0からフロントエンド側が分離
+
+マニュアルのJavaScriptとCSS scaffoldの項目参照
+
+composer require laravel/ui:^1.0 --dev
+
+インストール完了後、フロントエンドのscaffoldをインストールする
+php artisan ui bootstrap
+php artisan ui vue
+php artisan ui react
+から選ぶ
+
+ログイン/ユーザー登録機能のscaffoldを作成
+php artisan ui bootstrap --auth
+php artisan ui vue --auth
+php artisan ui react --auth
+
+......
+
+最後にnpm run devを行うとresources内にjs sassフォルダが作成される
+この中身がpublic/css public/jsにコンパイルされまとめれている
+
+仮にJSを変えてうまくいかないときにはきちんとコンパイルされpublicに記述されているか確認しても良い
