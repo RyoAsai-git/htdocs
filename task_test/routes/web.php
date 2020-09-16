@@ -26,6 +26,7 @@ Route::get('tests/test', 'TestController@index');
 //TestControllerのメソッド名を指定
 
 //要はtests/testにアクセスしたらTestControllerに飛ばしてという処理
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

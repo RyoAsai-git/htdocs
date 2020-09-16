@@ -370,4 +370,54 @@ npm run watch
     npm run watchでフロントで変更がないかを監視
 
     変更があればpublicに反映される
+
+
+エラーメッセージの日本語化
+    phpの場合は用意していた
+    laravelは用意されている resources/lang/en/内に存在
+
+    gitからlaravel-resources-lang-jaをコピー
+
+    エラーメッセージのattributeは変更可能
+    attribute -> []
+
+    config/app.phpの'locale'がjaだとresources/lang/jaが適用される
+
+    エラーメッセージ
+    passwordには8文字以上の文字列を指定してください。
+    passwordが英語のため
+
+    'attributes' => [
+        'password' => 'パスワード',
+    ],
+
+    パスワードには8文字以上の文字列を指定してください。へ変更される
+
+
+php artisan route:list
+    ルーティング一覧表示
+    内容が多すぎる
+
+    php artisan route:list > route:txt
+    ファイル化
+
+    App\Http\Controllers\Auth...
+    ログイン関連はここへ飛ぶ
+
+    HTTP/Controllers/Authフォルダ内に処理がそれぞれ存在する
+
+    routes/web.php
+
+    Auth::routes();
+    //この一文でAuthフォルダへのルーティングを実現
+    これを消すと、route:listからも消える
+
+
+管理画面 マルチログイン機能
+    https://coinbaby8.com/laravel-multi-login-html参照
+    laravel 5.5で作成したものだが、現在でも使える
+
+    記事内のphp artisan make:authでは認証が作れていたが
+    laravel 6以降では php artisan ui bootstrap --authで作る
+
     
