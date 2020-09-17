@@ -420,4 +420,4 @@ php artisan route:list
     記事内のphp artisan make:authでは認証が作れていたが
     laravel 6以降では php artisan ui bootstrap --authで作る
 
-    
+    ファイルを10個ほど作ることで実現できる
