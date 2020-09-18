@@ -421,3 +421,14 @@ php artisan route:list
     laravel 6以降では php artisan ui bootstrap --authで作る
 
     ファイルを10個ほど作ることで実現できる
+
+    create_admins_table.php (マイグレーション)
+    Admin.php (モデル)
+    config/auth.php (認証設定ファイル)
+    app/Exceptions/Handler.php (ログインしてない時の挙動)
+    route/web.php (ルーティング)
+    HomeController.php (コントローラー)
+    LoginController.php (コントローラー)
+    views/admin/login.blade.php (ビュー)
+    views/admin/home.blade.php (ビュー)
+    views/layout/app_admin.blade.php (ビュー(レイアウト))
