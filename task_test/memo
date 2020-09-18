@@ -432,3 +432,48 @@ php artisan route:list
     views/admin/login.blade.php (ビュー)
     views/admin/home.blade.php (ビュー)
     views/layout/app_admin.blade.php (ビュー(レイアウト))
+
+
+データベースは大文字区別できない
+    マイグレート時注意
+
+符号なしINTカラム
+    $table->unsignedInteger();
+    符号なしとは+,-と言った符号がつかず、プラスのみのもの
+     
+    実際にリレーションを組むときに片方が＋、片方がーだけだとリレーションがうまくいかない
+    後ほど解説
+
+    後からつけるカラム修飾子としても使える
+
+マイグレーション
+    テーブルの履歴管理
+    後から一個追加、削除など可能
+    オプションで操作できる
+    --createなど
+
+    ex タイトルカラムを追加する
+        php artisan make:migration add_title_to_contact_forms_table --table=contact_forms
+
+    ex your_nameの後に追加
+        $table->string('title', 50)->after('your_name');
+
+        php artisan migrateで反映
+
+    ex 追加したものを消したい場合は
+        dropColumnを記述すると削除できる
+
+        マイグレーションファイルのpublic function down内に記述
+        $table->dropColumn('title');
+
+    コマンド
+        php artisan migrate:status 
+        マイグレーションファイルの確認
+
+        php artisan migrate:rollback 
+        マイグレーションファイルのrollback 一つ前のマイグレーションファイルをデータベース反映前に戻す
+        public function down内に記述がないとうまくロールバックされないことがある
+
+        php artisan migrate:rollback --step=2
+        stepでマイグレーションファイルをどこまで戻すか指定できる
+        マイグレーションファイル
