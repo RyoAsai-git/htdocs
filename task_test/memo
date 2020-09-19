@@ -477,3 +477,27 @@ php artisan route:list
         php artisan migrate:rollback --step=2
         stepでマイグレーションファイルをどこまで戻すか指定できる
         マイグレーションファイル
+
+RESTful
+    RESTの原則に沿って構築されたWebシステムのHTTPでの呼び出しインターフェースのこと
+
+    php artisan make:controller ContactFormController --resource
+    リソースコントローラーにより処理されるアクション
+
+        index
+        create
+        store
+        show
+        edit
+        update
+        destroy
+
+    部分的なリソースルート作成で例えばindex,createのみ作成すると言ったことも可能
+        Route::resource('contacts', 'ContactFormController')->only([
+            'index', 'show'
+        ])
+
+        onlyをなくすと
+        Route::resource('contacts', 'ContactFormController');
+        全てのアクションが生成される
+

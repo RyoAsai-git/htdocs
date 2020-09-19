@@ -27,6 +27,7 @@ Route::get('tests/test', 'TestController@index');
 
 //要はtests/testにアクセスしたらTestControllerに飛ばしてという処理
 
-Auth::routes();
+Route::resource('contacts', 'ContactFormController');
+// Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
