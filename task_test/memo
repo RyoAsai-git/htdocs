@@ -522,6 +522,8 @@ RESTful
     @extends 読み込み
     @extends('layout.app')
 
+
+app.blade.php
     app.blade.php内
     {{}} これの内部でphpの処理が記述できる
 
@@ -573,7 +575,6 @@ RESTful
     {{ route('') }}  この内部にname->でつけた名前を設定できる
     {{ route('contact.index') }}と記述したらcontactフォルダのindexファイルが表示される
 
-
     @guest
     @else
         //ログインしていた状態の処理
@@ -583,8 +584,38 @@ RESTful
          {{ __('register') }}
 
          Localization 現地化 他言語対応
-        
-
 
     フォーム作成箇所では必ずCSRF対策
     laravelでは@csrf
+    入れないとエラー
+
+    @yield('content')
+        login.blade.php内に
+        @section('content')
+        ('')の中身があっていれば表示される
+
+        つまり app.blade.php内
+        <main>
+            @yield('content')
+        </main>
+        ここのmainの中にlogin.blade.phpなどが入ってくる
+        @section @endsectionで区切った内容が表示
+
+
+login.blade.php
+    <div class="container">
+        コンテナ設定
+    <div class="row justify-content-center">
+        //rowと書いてあげることでレスポンシブルが対応
+        //centerで真ん中に配置
+        <div class="col-md-8">
+            12分割した内の8を使う 
+
+    cardsカード型のデザイン
+        bootstrapのマニュアル内にある
+        最近よく見るデザイン
+
+        <div class="card-header">{{ __('Login') }}でloginフォームのLoginの文字表示
+
+    @errorエラー表示
+        バリデーション
