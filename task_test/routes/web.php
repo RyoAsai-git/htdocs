@@ -24,10 +24,23 @@ Route::get('tests/test', 'TestController@index');
 //tests/testにアクセスしたらここに処理を飛ばすという指示  
 // http://127.0.0.1:8000/tests/testでアクセスできる 
 //TestControllerのメソッド名を指定
-
 //要はtests/testにアクセスしたらTestControllerに飛ばしてという処理
 
-Route::resource('contacts', 'ContactFormController');
-// Auth::routes();
+// Route::get('contact/index', 'ContactFormController@index');
+// contact/indexにアクセスしたら, ContactFormControllerのindexメソッドが実行される
+
+Route::group(['prefix' => 'contact', 'middleware' => 'auth'], function(){
+    Route::get('index', 'ContactFormController@index')->name('contact.index');
+    //prefixでフォルダ名は指定済み
+});
+//'prefix' => 'フォルダ名' フォルダ指定
+//'middleware' => 'auth' 認証されていたら表示
+
+
+// REST
+// Route::resource('contacts', 'ContactFormController');
+
+Auth::routes();
+//ユーザー認証関連
 
 Route::get('/home', 'HomeController@index')->name('home');

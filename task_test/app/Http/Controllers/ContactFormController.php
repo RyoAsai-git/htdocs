@@ -14,6 +14,12 @@ class ContactFormController extends Controller
     public function index()
     {
         //
+        return view('contact.index');
+        // .があると .の前までがフォルダになり 後がファイル名
+        // viewの contactフォルダのindexファイル
+
+        // web.phpでは指定されてここへ飛ぶ
+        // ここからcontact/indexへ
     }
 
     /**

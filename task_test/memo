@@ -505,3 +505,14 @@ RESTful
         Route::resource('contacts', 'ContactFormController');
         全てのアクションが生成される
 
+
+ルートグループ
+    Route::group(['prefix' => 'contact', 'middleware' => 'auth'], function(){
+        Route::get('index', 'ContactFormController@index');
+    });
+
+    ->nameで名前をつけることができる
+        view側の記述が楽になる できるだけつけるように
+    ->name('contact.index');
+
+    php artisan route:listで確認
