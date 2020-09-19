@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//Requestクラスを読み込んでいる
+//vender/laravel/framework/src/illuminate/Http/Request.php
+
+use App\Models\ContactForm;
+//laravelの場合はphpで値をデータベースに保存する手順よりも簡単に保存できる
+// php PDO bind など
 
 class ContactFormController extends Controller
 {
@@ -29,7 +35,6 @@ class ContactFormController extends Controller
      */
     public function create()
     {
-        //
         return view('contact.create');
     }
 
@@ -40,8 +45,36 @@ class ContactFormController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+    //引数にRequest
+    //phpでは$_POSTで持ってきた laravelの場合はRequestで持ってくる
+    //インスタンス化したものを持ってくる DI dependency injection 依存性の注入
     {
-        //
+        $contact = new ContactForm;
+        //インスタンス化
+
+        //contactのプロパティ(変数)が用意されている
+        //プロパティがテーブルのカラム名と対応
+        //インスタンス化した変数で繋ぐ
+        $contact->your_name = $request->input('your_name');
+        $contact->title     = $request->input('title');
+        $contact->email     = $request->input('email');
+        $contact->url       = $request->input('url');
+        $contact->gender    = $request->input('gender');
+        $contact->age       = $request->input('age');
+        $contact->contact   = $request->input('contact');
+
+        $contact->save();
+        //保存するメソッド
+
+        return redirect('contact/index');
+        //強制的に元の画面に戻す
+
+        // dd($your_name, $title);
+        
+        // $input = $request->all();
+        // 全てのデータを持ってくる記述
+
+
     }
 
     /**

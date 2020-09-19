@@ -20,7 +20,7 @@ class AddTitleToContactFormsTable extends Migration
             // $table->string('title', 50);
             //このまま追加するとtimestampの後ろに追加される(最後尾)
             //->afterという記述を使う
-            // $table->string('title', 50)->after('your_name');
+            $table->string('title', 50)->after('your_name');
             //your_nameの後に追加される
         });
     }
@@ -32,9 +32,9 @@ class AddTitleToContactFormsTable extends Migration
      */
     public function down()
     {
-        Schema::table('contact_forms', function (Blueprint $table) {
-            //
-            $table->dropColumn('title');
-        });
+        // Schema::table('contact_forms', function (Blueprint $table) {
+        //     //
+        //     $table->dropColumn('title');
+        // });
     }
 }
