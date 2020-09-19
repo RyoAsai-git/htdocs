@@ -619,3 +619,8 @@ login.blade.php
 
     @errorエラー表示
         バリデーション
+
+
+formファサード
+    以前はインストール済みだった
+    今はcomposerで追加インストール必要
