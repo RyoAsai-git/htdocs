@@ -479,18 +479,22 @@ php artisan route:list
         マイグレーションファイル
 
 RESTful
+    laravel リソースルートはCRUDのルートをコントローラーへ割り当てる
+    マニュアル参照
     RESTの原則に沿って構築されたWebシステムのHTTPでの呼び出しインターフェースのこと
 
     php artisan make:controller ContactFormController --resource
     リソースコントローラーにより処理されるアクション
+    URI                         アクション
+    /contacts                   index
+    /contacts/create            create
+    /contacts                   store
+    /contacts/{contact}         show
+    /contacts/{contact}/edit    edit
+    /contacts/{contact}         update
+    /contacts/{contact}         destroy
 
-        index
-        create
-        store
-        show
-        edit
-        update
-        destroy
+    アクションに対してURIがあらかじめ決まっている仕組み REST
 
     部分的なリソースルート作成で例えばindex,createのみ作成すると言ったことも可能
         Route::resource('contacts', 'ContactFormController')->only([
