@@ -516,3 +516,75 @@ RESTful
     ->name('contact.index');
 
     php artisan route:listで確認
+
+
+部分テンプレート
+    @extends 読み込み
+    @extends('layout.app')
+
+    app.blade.php内
+    {{}} これの内部でphpの処理が記述できる
+
+        configヘルパ関数
+        {{ config('app.name', 'Laravel') }}
+        configフォルダのapp.nameファイルを持ってきている
+
+        app.name内
+        'name' => env('APP_NAME', 'Laravel'),
+
+        .env内
+        APP_NAME=Laravel
+        Laravelの箇所を変更するとconfigにも適応されてタイトルが変更される
+
+    
+    {{ asset('js/app.js') }}
+    {{ asset('css/app.css') }}
+
+        laravel-mix
+        webpack.mix.jsで設定した
+        mix.js('resources/js/app.js', 'public/js')
+            .sass('resources/sass/app.scss', 'public/css');
+
+        publicフォルダのjs, cssが表示されている
+
+    main 
+    @yield('content')
+        この中に作成したloginやregisterファイルはここから読み込まれている
+
+    <a class="navbar-brand" href="{{ url('/') }}"> 
+        {{ url('/') }} ルートに飛ぶというリンク設定
+
+    @guest
+        bladeのディレクティブという仕組み
+        認証ディレクティブ
+
+        @auth
+            // ユーザーは認証済み
+        @endauth
+
+        @guest
+            //ユーザーは認証されていない
+        @endguest
+
+    ここでは@guestできたら{{ route('login') }} {{ route('register') }}
+    login画面、register画面を押せるような仕組みになっている
+    routeというヘルパ関数
+
+    {{ route('') }}  この内部にname->でつけた名前を設定できる
+    {{ route('contact.index') }}と記述したらcontactフォルダのindexファイルが表示される
+
+
+    @guest
+    @else
+        //ログインしていた状態の処理
+         {{ Auth::user()->name }} ユーザーの名前を持ってくる
+
+         {{ __('login') }}
+         {{ __('register') }}
+
+         Localization 現地化 他言語対応
+        
+
+
+    フォーム作成箇所では必ずCSRF対策
+    laravelでは@csrf
