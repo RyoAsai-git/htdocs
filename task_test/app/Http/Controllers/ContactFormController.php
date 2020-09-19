@@ -7,8 +7,12 @@ use Illuminate\Http\Request;
 //vender/laravel/framework/src/illuminate/Http/Request.php
 
 use App\Models\ContactForm;
+//eloquent機能
 //laravelの場合はphpで値をデータベースに保存する手順よりも簡単に保存できる
 // php PDO bind など
+
+use Illuminate\Support\Facades\DB;
+//クエリビルダを用いるため
 
 class ContactFormController extends Controller
 {
@@ -19,10 +23,24 @@ class ContactFormController extends Controller
      */
     public function index()
     {
-        //
-        return view('contact.index');
+        // eloquent orマッパー
+        // $contacts = ContactForm::all();
+        //データベースの値を全て持ってくる
+
+        // dd($contacts);
+        //コレクション型で表示
+
+        //クエリビルダ
+        $contacts = DB::table('contact_forms')
+        ->select('id', 'your_name', 'title', 'created_at')
+        // ->orderBy('created_at', 'desc') 降順 新しい順
+        // ->orderBy('created_at', 'asc') 昇順 古い順
+        ->get();
+
+        return view('contact.index', compact('contacts'));
         // .があると .の前までがフォルダになり 後がファイル名
         // viewの contactフォルダのindexファイル
+        // compactで変数を渡す ('')内は$マーク不要
 
         // web.phpでは指定されてここへ飛ぶ
         // ここからcontact/indexへ
@@ -73,7 +91,6 @@ class ContactFormController extends Controller
         
         // $input = $request->all();
         // 全てのデータを持ってくる記述
-
 
     }
 
