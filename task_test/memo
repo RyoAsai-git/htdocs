@@ -703,3 +703,22 @@ destroy機能
         'contact'   => 'お問い合わせ内容',
         'caution'   => '注意事項',
     ],
+
+
+ダミーデータ
+    シーダを使用
+    作成
+    php artisan make:seeder UsersTableSeeder
+
+    database/seeds内にUsersTableSeeder
+    
+    php artisan db:seedで追加
+
+    php artisan migrate:refresh
+    データベースを初期化
+
+    php artisan migrate:refresh --seed
+    初期化し、ダミーデータ追加
+
+
+大量のダミーデータを追加する方法
