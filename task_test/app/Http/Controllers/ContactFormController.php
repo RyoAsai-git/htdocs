@@ -108,7 +108,38 @@ class ContactFormController extends Controller
         $contact = ContactForm::find($id);
         //findメソッド 一個だけデータをとってくる
 
-        return view('contact.show', compact('contact'));
+        //一覧表示の際にデータベースの値がそのまま表示されるので、genderの内容が0か1で表示される
+        //男女で表示するための処理
+
+        if ($contact->gender === 0) {
+            $gender = '男性';
+        }
+        if ($contact->gender === 1) {
+            $gender = '女性';
+        }
+
+        if ($contact->age === 1) {
+            $age = '〜19歳';
+        }
+        if ($contact->age === 2) {
+            $age = '20歳〜29歳';
+        }
+        if ($contact->age === 3) {
+            $age = '30歳〜39歳';
+        }
+        if ($contact->age === 4) {
+            $age = '40歳〜49歳';
+        }
+        if ($contact->age === 5) {
+            $age = '50歳〜59歳';
+        }
+        if ($contact->age === 6) {
+            $age = '60歳〜';
+        }
+
+        return view('contact.show', 
+        compact('contact', 'gender', 'age'));
+        //compactは変数を複数渡すことができる
     }
 
     /**
