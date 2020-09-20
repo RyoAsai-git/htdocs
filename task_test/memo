@@ -636,4 +636,70 @@ destroy機能
 
     ex 
     コントローラー内でshowアクションをスリム化するために
-    App/Servicesを作り CheckForm.php
+    App/Servicesを作り CheckForm.php内に性別、年齢表示処理を分ける
+
+    コントローラーの処理が増えてきたらServicesに処理をわけ、スリム化
+
+
+既存のphpのバリデーション
+    パッと見何が書いてあるかわかりにくい
+    laravelではより簡単に設定できる
+
+    フォームリクエスト作成
+    ex 
+    php artisan make:request StoreContactForm
+
+    public function rules()内にバリデーション記述
+    公式マニュアル内の使用可能なバリデーションルールの箇所を参考
+
+    ex
+    'finish_date' => 'required|date|after:start_date'
+    左側がformの名前、属性
+    右側が条件 
+
+    バリデーションを組むのはcreateアクションではなく、store
+    登録するボタンを押すと、storeアクションに渡り、データが保存されるため
+
+    ex
+    public function store(Request $request)
+    を
+    public function store(StoreContactForm $request)
+    へ変更する
+
+    このままだとエラーメッセージが表示されない
+
+    create.blade.php
+    @if ($errors->any())
+    <!-- anyで一つでもエラーが出ていたらif文の処理 -->
+        <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        </div>
+    @endif
+
+    エラーメッセージが出力される
+
+    エラーメッセージが英語の箇所があれば、resources/ja/validation
+    attributeの箇所へ追記する
+
+    「〜は必須です」を変えたい場合は
+    required'             => ':attributeは必須です。',
+    の箇所を
+    required'             => ':attributは必ず入力してください。',
+    変更
+
+    ex
+    'attributes' => [
+        'password'  => 'パスワード',
+        'your_name' => '氏名',
+        'title'     => '件名',
+        'email'     => 'メールアドレス',
+        'url'       => 'ホームページ',
+        'gender'    => '性別',
+        'age'       => '年齢',
+        'contact'   => 'お問い合わせ内容',
+        'caution'   => '注意事項',
+    ],

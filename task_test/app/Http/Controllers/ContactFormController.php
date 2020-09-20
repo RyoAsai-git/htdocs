@@ -18,6 +18,9 @@ use App\Services\CheckFormData;
 //ファットコントローラー解消のため showアクション
 //Servicesフォルダ内のCheckFormDataへ分けた
 
+use App\Http\Requests\StoreContactForm;
+//バリデーションを設定したファイルを読み込む
+
 class ContactFormController extends Controller
 {
     /**
@@ -66,7 +69,7 @@ class ContactFormController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreContactForm $request)
     //引数にRequest
     //phpでは$_POSTで持ってきた laravelの場合はRequestで持ってくる
     //インスタンス化したものを持ってくる DI dependency injection 依存性の注入

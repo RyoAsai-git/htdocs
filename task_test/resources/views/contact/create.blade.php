@@ -13,6 +13,19 @@
                             {{ session('status') }}
                         </div>
                     @endif
+
+                    @if ($errors->any())
+                    <!-- anyで一つでもエラーが出ていたらif文の処理 -->
+                      <div class="alert alert-danger">
+                        <ul>
+                          @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                          @endforeach
+                        </ul>
+                      </div>
+                    @endif
+
+                    createです
                     <form method="POST" action="{{ route('contact.store') }}">
                       @csrf
                       氏名
