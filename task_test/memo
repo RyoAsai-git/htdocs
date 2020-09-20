@@ -722,3 +722,42 @@ destroy機能
 
 
 大量のダミーデータを追加する方法
+    factory 工場
+    faker 工場で働く人
+
+    マニュアルのテスト/データベース内にファクトリの使い方あり
+
+    php artisan make:factory ContactFormFactory
+
+    ダミーデータが英語で追加されてしまう
+    config/app.php
+    'faker_locale' => 'en_US',
+    を
+    'faker_locale' => 'ja_JP',
+    へ変更
+
+    ex fakerの設定
+    $factory->define(ContactForm::class, function (Faker $faker) { 
+    return [
+        'your_name' => $faker->name,
+        //左側 カラム
+        //右側 $faker->作りたいダミーデータの条件
+        'title'     => $faker->realText(50),
+        //日本語の場合はRealTextしか使えない ()で文字数
+        'email'     => $faker->unique()->email,
+        // unique 一つだけのものを作る必要
+        'url'       => $faker->url,
+        'gender'    => $faker->randomElement(['0', '1']),
+        'age'       => $faker->numberBetween($min = 1, $max = 6),
+        'contact'   => $faker->realText(200), 
+    ];
+
+    これを作成したらseederへ渡す
+    各ファイル参照
+
+    シーダーを変えたら
+    オートロードの再設定
+
+    composer dump-autoload
+
+    php artisan migrate:fresh --seedでも追加可能

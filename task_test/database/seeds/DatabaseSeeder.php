@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ContactForm;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,5 +14,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UsersTableSeeder::class);
         //ここをコメントアウトするとデータの追加ができない
+        $this->call(ContactFormSeeder::class);
     }
 }
