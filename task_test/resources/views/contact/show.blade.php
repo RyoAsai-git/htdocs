@@ -27,9 +27,27 @@
                       
                       <input class="btn btn-info" type="submit" value="変更する">
                     </form>
+
+                    <form method="POST" action="{{ route('contact.destroy', ['id' => $contact->id] )}}" id="delete_{{ $contact->id }}">
+                      <!-- 変更のようにボタン作成すると確認画面が作れず、すぐに削除されてしまう -->
+                      @csrf
+                      <a href="#" class="btn btn-danger" data-id="{{ $contact->id }}" onclick="deletePost(this);">削除する</a>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+// <!-- JS -->
+// <!-- 削除ボタンを押してすぐにレコードが削除されるのは問題 -->
+// <!-- 一旦JSで確認メッセージを流す -->
+function deletePost(e) {
+    'use strict';
+    if (confirm('本当に削除していいですか？')) {
+        document.getElementById('delete_' + e.dataset.id).submit()
+    }
+}
+</script>
+
 @endsection

@@ -30,6 +30,8 @@ Route::get('tests/test', 'TestController@index');
 // contact/indexにアクセスしたら, ContactFormControllerのindexメソッドが実行される
 
 Route::group(['prefix' => 'contact', 'middleware' => 'auth'], function(){
+    //prefixでフォルダ名は指定済み
+    //'contact.index'と書かなくて良い
     Route::get('index', 'ContactFormController@index')->name('contact.index');
     Route::get('create', 'ContactFormController@create')->name('contact.create');
     Route::post('store', 'ContactFormController@store')->name('contact.store');
@@ -37,7 +39,9 @@ Route::group(['prefix' => 'contact', 'middleware' => 'auth'], function(){
     Route::get('edit/{id}', 'ContactFormController@edit')->name('contact.edit');
     //editは'{id}/edit'でも可能
     Route::post('update/{id}', 'ContactFormController@update')->name('contact.update');
-    //prefixでフォルダ名は指定済み
+    Route::post('destroy/{id}', 'ContactFormController@destroy')->name('contact.destroy');
+    //アクション名はdeleteでも良いが、コントローラーでdestroyで作成しているため、今回はdestroyで作成
+    
 });
 //'prefix' => 'フォルダ名' フォルダ指定
 //'middleware' => 'auth' 認証されていたら表示
