@@ -69,6 +69,7 @@ class ContactFormController extends Controller
     {
         $contact = new ContactForm;
         //インスタンス化
+        //データベース名であり、クラス名
 
         //contactのプロパティ(変数)が用意されている
         //プロパティがテーブルのカラム名と対応
@@ -101,8 +102,13 @@ class ContactFormController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
+    // 引数id 
+    // 一人ずつ取り出すのでEloquentの方が早い
     {
-        //
+        $contact = ContactForm::find($id);
+        //findメソッド 一個だけデータをとってくる
+
+        return view('contact.show', compact('contact'));
     }
 
     /**
