@@ -163,8 +163,26 @@ class ContactFormController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
+    // 引数idを持ってきている
+    // 今あるインスタンスを持ってくる必要
     {
-        //
+        $contact = ContactForm::find($id);
+        // $contact = new ContactForm;
+
+        $contact->your_name = $request->input('your_name');
+        $contact->title     = $request->input('title');
+        $contact->email     = $request->input('email');
+        $contact->url       = $request->input('url');
+        $contact->gender    = $request->input('gender');
+        $contact->age       = $request->input('age');
+        $contact->contact   = $request->input('contact');
+        //Requestから持ってきた値を今の値で上書き
+
+        $contact->save();
+        //保存
+
+        return redirect('contact/index');
+        
     }
 
     /**

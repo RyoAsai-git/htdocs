@@ -36,6 +36,7 @@ Route::group(['prefix' => 'contact', 'middleware' => 'auth'], function(){
     Route::get('show/{id}', 'ContactFormController@show')->name('contact.show');
     Route::get('edit/{id}', 'ContactFormController@edit')->name('contact.edit');
     //editは'{id}/edit'でも可能
+    Route::post('update/{id}', 'ContactFormController@update')->name('contact.update');
     //prefixでフォルダ名は指定済み
 });
 //'prefix' => 'フォルダ名' フォルダ指定
