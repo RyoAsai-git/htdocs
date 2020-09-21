@@ -5,6 +5,7 @@
 // use App\Model;
 use App\Models\ContactForm;
 //ここのModelの箇所を実際にダミーデータを作るモデルと合わせる必要がある
+
 use Faker\Generator as Faker;
 
 // $factory->define(Model::class, function (Faker $faker) {
