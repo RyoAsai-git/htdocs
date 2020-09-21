@@ -29,9 +29,6 @@ class SearchData
                 }
              }
         
-        $query->select('id', 'your_name', 'title', 'created_at');
-        $query->orderBy('created_at', 'asc');
-        
         return $query;
     }
 }

@@ -92,7 +92,10 @@ class ContactFormController extends Controller
         // // ->get();
         // ->paginate(20);
 
-        $query    = SearchData::searchWords($search); 
+        $query = SearchData::searchWords($search);
+
+        $query->select('id', 'your_name', 'title', 'created_at');
+        $query->orderBy('created_at', 'asc');
         $contacts = $query->paginate(20);
 
         return view('contact.index', compact('contacts'));
