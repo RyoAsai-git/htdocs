@@ -761,3 +761,42 @@ destroy機能
     composer dump-autoload
 
     php artisan migrate:fresh --seedでも追加可能
+
+
+ページネーション
+    laravelでは実装されている
+
+    クエリビルダで->paginateをつけるだけ
+    ->paginate(20);
+    取りたい件数を指定 20件
+
+    ここまでだと次の20件のリンクがない
+    
+    ページネーションの結果の表示
+    ->linksを使う
+
+    {{ $contacts->links() }} index.blade.phpに追加
+
+
+検索フォーム
+    SQL 
+    SELECT * FROM `contact_forms` WHERE 1 'your_name' = '加藤';
+    加藤さんが出てくるかと思いきや、出てこない
+
+    加藤 ぴったりじゃないと表示されない
+    加藤太郎 出てこない
+    前後の文字が反映されていない
+
+    SELECT * FROM `contact_forms` WHERE `your_name` like '%原田%'
+    %をつけることで0文字以上曖昧検索
+    原田花子
+    原田太郎も表示される
+
+    and検索
+    SELECT * FROM `contact_forms` WHERE `your_name` like '%原田%' and `your_name` like '%結衣%';
+    原田と結衣の両方の条件が成立する一件だけが表示される
+
+    bootstrap
+    componentのnavbarの箇所にsearch boxある
+
+    indexアクションの記述量が増えるのでServiceとして切り取り推奨

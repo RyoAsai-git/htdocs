@@ -28,8 +28,56 @@ class ContactFormController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
+    //フォームの値を持ってくる必要があるので Request $request
+    //di
+    //Requestクラスのインスタンスで$requestを持ってくることができる
     {
+        $search = $request->input('search');
+
+
+        
+        
+        //ex aaaと検索
+        // dd($request);
+        // Illuminate\Http\Request {#51 ▼
+        //     #json: null
+        //     #convertedFiles: null
+        //     #userResolver: Closure($guard = null) {#354 ▶}
+        //     #routeResolver: Closure() {#364 ▶}
+        //     +attributes: Symfony\Component\HttpFoundation\ParameterBag {#53 ▶}
+        //     +request: Symfony\Component\HttpFoundation\ParameterBag {#59 ▼
+        //       #parameters: array:1 [▼
+        //         "search" => "aaa"
+        //       ]
+        //     }
+        //     +query: Symfony\Component\HttpFoundation\ParameterBag {#59 ▶}
+        //     +server: Symfony\Component\HttpFoundation\ServerBag {#55 ▶}
+        //     +files: Symfony\Component\HttpFoundation\FileBag {#56 ▶}
+        //     +cookies: Symfony\Component\HttpFoundation\ParameterBag {#54 ▶}
+        //     +headers: Symfony\Component\HttpFoundation\HeaderBag {#57 ▶}
+        //     #content: null
+        //     #languages: null
+        //     #charsets: null
+        //     #encodings: null
+        //     #acceptableContentTypes: null
+        //     #pathInfo: "/contact/index"
+        //     #requestUri: "/contact/index?search=aaa"
+        //     #baseUrl: ""
+        //     #basePath: null
+        //     #method: "GET"
+        //     #format: null
+        //     #session: Illuminate\Session\Store {#393 ▶}
+        //     #locale: null
+        //     #defaultLocale: "en"
+        //     -preferredFormat: null
+        //     -isHostValid: true
+        //     -isForwardedValid: true
+        //     basePath: ""
+        //     format: "html"
+        //   }
+
+
         // eloquent orマッパー
         // $contacts = ContactForm::all();
         //データベースの値を全て持ってくる
@@ -38,11 +86,39 @@ class ContactFormController extends Controller
         //コレクション型で表示
 
         //クエリビルダ
-        $contacts = DB::table('contact_forms')
-        ->select('id', 'your_name', 'title', 'created_at')
-        // ->orderBy('created_at', 'desc') 降順 新しい順
-        // ->orderBy('created_at', 'asc') 昇順 古い順
-        ->get();
+        // $contacts = DB::table('contact_forms')
+        // ->select('id', 'your_name', 'title', 'created_at')
+        // // ->orderBy('created_at', 'desc') 降順 新しい順
+        // // ->orderBy('created_at', 'asc') 昇順 古い順
+        // // ->get();
+        // ->paginate(20);
+
+        //検索フォーム用
+        $query = DB::table('contact_forms');
+        //$queryとしてテーブルをとってくる
+
+            //もし検索ワードがあれば
+            if ($search !== null) {
+                //全角スペースを半角に
+                $search_split = mb_convert_kana($search, 's');
+                //引数で's'とすると全角スペースを半角にする
+                //ex
+                //あああ いいい と言った検索の際に間を全角にする人もいる あああ　いいいのように
+
+                //空白で区切る
+                $search_split2 = preg_split('/[\s]+/', $search_split, -1, PREG_SPLIT_NO_EMPTY);
+                //正規表現
+                //オプション PREG_SPLIT_NO_EMPTY 空文字でないものがpreg_splitにより返される
+
+                //単語をループで回す
+                foreach ($search_split2 as $value) {
+                    $query->where('your_name', 'like', '%'.$value.'%');
+                }
+             }
+        
+        $query->select('id', 'your_name', 'title', 'created_at');
+        $query->orderBy('created_at', 'asc');
+        $contacts = $query->paginate(20);
 
         return view('contact.index', compact('contacts'));
         // .があると .の前までがフォルダになり 後がファイル名
