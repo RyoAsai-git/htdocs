@@ -35,3 +35,8 @@
 
     主テーブルと子テーブル
     必ず主テーブルから作成する
+
+
+リレーション Eloquent
+    ->belongsTo
+    ->hasMany

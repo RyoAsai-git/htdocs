@@ -29,6 +29,8 @@ Route::get('tests/test', 'TestController@index');
 // Route::get('contact/index', 'ContactFormController@index');
 // contact/indexにアクセスしたら, ContactFormControllerのindexメソッドが実行される
 
+Route::get('shops/index', 'ShopController@index');
+
 Route::group(['prefix' => 'contact', 'middleware' => 'auth'], function(){
     //prefixでフォルダ名は指定済み
     //'contact.index'と書かなくて良い
