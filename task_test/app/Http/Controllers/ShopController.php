@@ -17,8 +17,10 @@ class ShopController extends Controller
         //主 <- 従
         $shop = Shop::find(3)->area->name;
         //shopのid3つめ
-        dd($area_tokyo, $shop);
 
         //laravelのモデルにhasMany belongsToを書いてあげるとINNER JOINを使わずにリレーション
+
+        $shop_route = Shop::find(1)->routes()->get();
+        dd($area_tokyo, $shop, $shop_route);
     }
 }

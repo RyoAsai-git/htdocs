@@ -17,5 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ContactFormSeeder::class);
         $this->call(AreaSeeder::class);
         $this->call(ShopSeeder::class);
+        $this->call(RouteSeeder::class); //まずは親から設定
+        $this->call(RouteShopSeeder::class);
     }
 }
