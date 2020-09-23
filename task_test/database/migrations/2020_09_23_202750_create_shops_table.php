@@ -20,6 +20,9 @@ class CreateShopsTable extends Migration
             //unsignedBigInteger出ないとAreasとうまくつながらない
             //マイナスになる見込みがないものにはUNSIGNEDを付ける
             $table->timestamps();
+
+            $table->foreign('area_id')->references('id')->on('areas');
+            //foreign 繋げたいカラム references 繋げるカラム on 繋げるテーブル
         });
     }
 
