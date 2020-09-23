@@ -15,3 +15,23 @@
     データ設計をミスると後々大変
     打ち合わせ時にexcelで必要なデータベース、カラムなどをまとめる
     外部キーなど
+
+
+リレーション
+    テーブルの種類
+    1対1 あまり使わない
+
+    1対多 複数の中から1つを選べる
+        不動産 一つのエリア ex渋谷区だと複数の物件がある
+
+    多対多 複数の条件を紐付ける
+    SQLだとJSONで紐づける
+    SELECT * FROM `shops` INNER JOIN `areas` ON `shops`.`area_id` = `areas`.`id`
+    INNER JOINで繋げたいテーブル名
+    つなげる列をshopsのareas_idとareasのidとする
+    INNER JOINクエリビルダあり
+
+    Eloquentを使うともう少し簡単に✖︎
+
+    主テーブルと子テーブル
+    必ず主テーブルから作成する
